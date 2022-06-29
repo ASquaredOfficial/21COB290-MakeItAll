@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Helpdesk</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="robots" content="width=device-width" />
+<link rel="shortcut icon" href="Pictures/miaLogo.png" type="image/png">
+<link rel="stylesheet" type="text/css" href="mystyle.css">		<!--css file-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!---
+Necessary Inputs: Name, Ext, Date
+Hardware or Software (at least one)
+A list of problem types
+Prob description
+
+- Prob type: General Hardware or PC Issues
+- Hardware: PC or Laptop or Desktop
+- Prob description: includes both run and slow
+- Quick Solution: reboot computer
+
+- Prob type: General Hardware or Printer Issues
+- Hardware: printer
+- Prob description: includes fade or discoloured
+- Quick Solution: change ink
+
+- Prob type: General Hardware, Mouse or Keyboard Issues
+- Prob description: includes wireless
+- Quick Solution: change batteries
+
+- Prob type: General Software or PC Issues
+- Hardware: 
+- Prob description: includes both run and slow
+- Quick Solution: re install program
+-->
+
+
+<script>
+	var prob_id = 1;
+	
+	var bert_jobs = 2;
+	var clara_jobs = 1;
+	var nick_jobs = 4;
+	var external_jobs = 0;
+	var past_log = "";
+</script>
+<script>
+//quick responses: such as re-boot system, close and re-open program, change ink, change batteries in device (for wireless keyboard/mouse), Disconnect and reconnect wifi, run troubleshoot, reinstall program, check for updates
+$(document).ready(function(){
+	$("#options").change(function (){
+		var chosen_type = $("#options").val();
+		
+		if (chosen_type == "net"){
+			
+			$("#n_specialist").css("display", "block");
+			$("#h_specialist").css("display", "none");
+			$("#s_specialist").css("display", "none");
+			$("#OS_specialist").css("display", "none");
+			$("#specialist").css("display", "none");
+		}
+		if (chosen_type == "hard" || chosen_type == "key" || chosen_type == "pc" || chosen_type == "mouse" || chosen_type == "print"){
+			
+			$("#n_specialist").css("display", "none");
+			$("#h_specialist").css("display", "block");
+			$("#s_specialist").css("display", "none");
+			$("#OS_specialist").css("display", "none");
+			$("#specialist").css("display", "none");
+		}
+		if (chosen_type == "soft"|| chosen_type == "word" || chosen_type == "mt"){
+			
+			$("#n_specialist").css("display", "none");
+			$("#h_specialist").css("display", "none");
+			$("#s_specialist").css("display", "block");
+			$("#OS_specialist").css("display", "none");
+			$("#specialist").css("display", "none");
+		}
+		if (chosen_type == "os"){
+			
+			$("#n_specialist").css("display", "none");
+			$("#h_specialist").css("display", "none");
+			$("#s_specialist").css("display", "none");
+			$("#OS_specialist").css("display", "block");
+			$("#specialist").css("display", "none");
+		}
+		if (chosen_type == "all"){
+			
+			$("#n_specialist").css("display", "none");
+			$("#h_specialist").css("display", "none");
+			$("#s_specialist").css("display", "none");
+			$("#OS_specialist").css("display", "none");
+			$("#specialist").css("display", "block");
+		}
+	});
+});
+
+$(document).ready(function(){
+	$('#QuickButton').click(function(){
+		var text = "";
+		var spec = "";
+		var sol = false;
+		var hardware = $("#hard").val().toLowerCase();
+		var software = $("#soft").val().toLowerCase();
+		var type = $("#options").val();
+		var description = $("#descript").val().toLowerCase();
+		var no = true;
+		//alert(hardware);
+		
+		if (type == "pc" || type == "hard") {
+			if (hardware.includes("laptop") || hardware.includes("pc") || hardware.includes("desktop")){
+				if (description.includes("run") && description.includes("slow")){
+					text+= "Please attempt re-booting the computer";
+					sol = true;
+				}
+				
+			}
+		} else if (type == "print" || type == "hard" && hardware.includes("printer")){
+			if (description.includes("fade") || description.includes("discoloured")) {
+				text+= "Please change ink or toner";
+				sol = true;
+			}
+		} else if (type == "hard" || type == "key" || type == "mouse"){
+			if (description.includes("wireless")){
+				text += "Try changing the batteries the device";
+				sol = true;
+			}
+			
+		} else if (type == "soft") {
+			if (description.includes("program")){
+				if (description.includes("not") && description.includes("run")){
+					text += "Try re-installing the program";
+					sol = true;
+				}else if (description.includes("crash")){
+					text += "Try running Troubleshoot";
+					sol = true;
+				}
+			}
+		} else if (type == "net") {
+			if (description.includes("wifi") || description.includes("wi-fi")){
+				if (description.includes("poor") || description.includes("bad") || description.includes("no")){
+					text += "Attempt disconnecting and re-connecting Wi-Fi";
+					sol = true;
+				}
+			}
+		}
+		if (type == "all"){
+			text += "A problem type must be selected";
+			no = false;
+		}else if ((hardware.replace(/\s/g, "") == "" || hardware == "") && (software.replace(/\s/g, "") == "" || software == "")){
+			text += "Please enter the software or hardware (or both) involved";
+			no = false;
+		}else if (description.replace(/\s/g, "") == "" || description == ""){
+			text += "Please give the problem description";
+			no = false;
+		}
+		else if (sol == false) {
+			text += "No suitable solution on hand, please pass to a Techinal Specialist immediately";
+			$(".specialists_area").css("display", "block");
+			//$(".specialists_area").css("visibility", "visible");
+			spec += "Bert - Active Problems: " + bert_jobs + "<br> ";
+			spec += "Clara - Active Problems: " + clara_jobs + "<br> ";
+			spec += "Nick - Active Problems: " + nick_jobs + "<br> ";
+			spec += "The External Specialists (Daniel & Tara) - Active Problems: " + external_jobs;
+			$('#SpecialistAvailability').html(spec);
+		}
+		alert(text);
+		if (no){
+			$('#QuickSolution').val(text);
+		}
+		//alert(prob_id);
+	});
+});
+
+$(document).ready(function(){
+	$('#LogButton').click(function(){
+		var passed = true;
+		var spec_text = "";
+		var p_text = "";
+		var log_text = "Log: ";
+		var fname = $("#fname").val();
+		var sname = $("#sname").val();
+		var ext_num = $("#caller").val();
+		var emp_id = $("#emp_id").val();
+		var hard = $("#hard").val();
+		var soft = $("#soft").val();
+		var type = $("#options").val();
+		var description = $("#descript").val();
+		var sol = $("#QuickSolution").val();
+		if ($("#date").val().replace(/\s/g, "") == "" || $("#date").val() == ""){
+			var now = new Date();
+			now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+			document.getElementById('date').value = now.toISOString().slice(0,16);
+		}
+		var p_date = $("#date").val();
+		
+		
+		if (fname.replace(/\s/g, "") == "" || fname == ""){
+			alert("First name field is empty");
+			passed = false;
+		} else if (sname.replace(/\s/g, "") == "" || sname == ""){
+			alert("Surname field is empty");
+			passed = false;
+		} else if (ext_num.replace(/\s/g, "") == "" || ext_num == ""){
+			alert("Extension number field is empty");
+			passed = false;
+		} else if (p_date.replace(/\s/g, "") == "" || p_date == ""){
+			alert("A Date must be entered");
+			passed = false;
+		} else if (type == "all"){
+			alert("Please Specify a Problem Type");
+			passed = false;
+		} else if ((hard.replace(/\s/g, "") == "" || hard == "") && (soft.replace(/\s/g, "") == "" || soft == "")){
+			alert("Please enter the software or hardware (or both) involved");
+			passed = false;
+		} else if (description.replace(/\s/g, "") == "" || description == ""){
+			alert("Please give the problem description");
+			passed = false;
+		} else if (sol.replace(/\s/g, "") == "" || sol == ""){
+			alert("Press the Quick Solution Button or Please Type a solution");
+			passed = false;
+		}
+		
+		if (emp_id.replace(/\s/g, "") == "" || emp_id == ""){
+			emp_id = "unknown";
+			//Here in the full code it will probably just check database for the emp_id based on name
+		}
+		
+		
+		if ($(".specialists_area").is(':visible')){
+			if ($("#specialist").is(':visible')){
+				if (type == "net"){
+					$("#n_specialist").css("display", "block");
+					$("#specialist").css("display", "none");
+				}
+				if (type == "hard" || type == "key" || type == "pc" || type == "mouse" || type == "print"){
+					$("#h_specialist").css("display", "block");
+					$("#specialist").css("display", "none");
+				}
+				if (type == "soft"|| type == "word" || type == "mt"){
+					$("#s_specialist").css("display", "block");
+					$("#specialist").css("display", "none");
+				}
+				if (type == "os"){
+					$("#OS_specialist").css("display", "block");
+					$("#specialist").css("display", "none");
+				}
+				alert("Please re-select specialist");
+				passed = false;
+			}
+			else if ($("#s_specialist").is(':visible')){
+				var spec = $("#s_specialist").val();
+				
+				if (spec == "auto"){
+					if (clara_jobs <= external_jobs){
+						spec_text += "Passed straight to Clara";
+						clara_jobs += 1;
+					} else {
+						spec_text += "Passed straight to Daniel (External Specialist)";
+						external_jobs += 1;
+					}
+				} else if (spec == "clara"){
+					spec_text += "Passed straight to Clara";
+					clara_jobs += 1;
+				} else {
+					spec_text += "Passed straight to Daniel (External Specialist)";
+					external_jobs += 1;
+				}
+			} else if ($("#h_specialist").is(':visible')){
+				var spec = $("#h_specialist").val();
+				
+				if (spec == "auto"){
+					if (bert_jobs <= external_jobs){
+						spec_text += "Passed straight to Bert";
+						bert_jobs += 1;
+					} else {
+						spec_text += "Passed straight to External Specialists";
+						external_jobs += 1;
+					}
+				} else if (spec == "bert"){
+					spec_text += "Passed straight to Bert";
+					bert_jobs += 1;
+				} else {
+					spec_text += "Passed straight to External Specialists";
+					external_jobs += 1;
+				}
+			} else if ($("#n_specialist").is(':visible')){
+				var spec = $("#n_specialist").val();
+				
+				if (spec == "auto"){
+					if (nick_jobs <= external_jobs){
+						spec_text += "Passed straight to Nick";
+						nick_jobs += 1;
+					} else {
+						spec_text += "Passed straight to Daniel (External Specialist)";
+						external_jobs += 1;
+					}
+				} else if (spec == "nick"){
+					spec_text += "Passed straight to Nick";
+					nick_jobs += 1;
+				} else {
+					spec_text += "Passed straight to Daniel (External Specialist)";
+					external_jobs += 1;
+				}
+			} else if ($("#OS_specialist").is(':visible')){
+				var spec = $("#OS_specialist").val();
+				
+				if (spec == "auto"){
+					if (clara_jobs <= external_jobs){
+						spec_text += "Passed straight to Clara";
+						clara_jobs += 1;
+					} else {
+						spec_text += "Passed straight to Tara (External Specialist)";
+						external_jobs += 1;
+					}
+				} else if (spec == "clara"){
+					spec_text += "Passed straight to Clara";
+					clara_jobs += 1;
+				} else {
+					spec_text += "Passed straight to Tara (External Specialist)";
+					external_jobs += 1;
+				}
+			}
+			
+			log_text += fname + ", " + sname + ", "+ext_num+", "+emp_id+", ";
+			log_text += p_date + ", " + hard + ", "+soft+", "+type+", "+ description + "<br>"+ spec_text;
+			
+		} else {
+			log_text += fname + ", " + sname + ", "+ext_num+", "+emp_id+", ";
+			log_text += p_date + ", " + hard + ", "+soft+", "+type+", "+ description + "<br>"+ sol;
+			if ($('#i_resolve').is(":checked")){
+				//alert("Problem Resolved");
+				log_text += ", true";
+			} else {
+				log_text += ", false";
+			}
+		}
+		
+		if (passed){
+			if (log_text == past_log){
+				alert("This log has already been noted");
+			} else {
+				p_text += "Problem ID: " + prob_id;
+				$('#probID').html(p_text);
+				$('#tempLog').html(log_text);
+				prob_id += 1;
+				past_log = log_text;
+				$("#options").val('all');
+				$("#fname").val('');
+				$("#sname").val('');
+				$("#caller").val('');
+				$("#emp_id").val('');
+				$("#date").val('');
+				$("#hard").val('');
+				$("#soft").val('');
+				$("#descript").val('');
+				$("#QuickSolution").val('');
+				$(".specialists_area").css("display", "none");
+			}
+		}
+		
+	});
+});
+
+$(document).ready(function(){
+	$('#submitP').click(function(){
+		var specialists = "";
+		if ($('#p_resolve').is(":checked")){
+			alert("Problem Resolved, updating log");
+		} else {
+			$(".special_area").css("visibility", "visible");
+			$(".special_lost").css("display", "none");
+			specialists += "Bert - Active Problems: " + bert_jobs + "<br> ";
+			specialists += "Clara - Active Problems: " + clara_jobs + "<br> ";
+			specialists += "Nick - Active Problems: " + nick_jobs + "<br> ";
+			specialists += "The External Specialists (Daniel & Tara) - Active Problems: " + external_jobs;
+			$('#special_list').html(specialists);
+			
+			var type = $("#prob_type").text();
+			//alert(type);
+			
+			if (type == "PC Issues" || type == "General Hardware" || type == "Keyboard Issues" || type == "Mouse Issues" || type == "Printer Issues" ){
+				$("#h_specialist_").css("display", "block");
+			}else if (type == "General Software" || type == "Word" || type == "General Hardware" || type == "Microsoft Teams") {
+				$("#s_specialist_").css("display", "block");
+			}
+			else if (type == "Network") {
+				$("#n_specialist_").css("display", "block");
+			}else if (type == "Operating System") {
+				$("#OS_specialist_").css("display", "block");
+			}
+			
+			
+		}
+		
+	});
+});
+
+$(document).ready(function(){
+	$('#submitII').click(function(){
+		var spec_text = "";
+		if ($("#s_specialist_").is(':visible')){
+			var spec = $("#s_specialist_").val();
+			
+			if (spec == "auto"){
+				if (clara_jobs <= external_jobs){
+					spec_text += "Passed straight to Clara";
+					clara_jobs += 1;
+				} else {
+					spec_text += "Passed straight to Daniel (External Specialist)";
+					external_jobs += 1;
+				}
+			} else if (spec == "clara"){
+				spec_text += "Passed straight to Clara";
+				clara_jobs += 1;
+			} else {
+				spec_text += "Passed straight to Daniel (External Specialist)";
+				external_jobs += 1;
+			}
+		} else if ($("#h_specialist_").is(':visible')){
+			var spec = $("#h_specialist_").val();
+			
+			if (spec == "auto"){
+				if (bert_jobs <= external_jobs){
+					spec_text += "Passed straight to Bert";
+					bert_jobs += 1;
+				} else {
+					spec_text += "Passed straight to External Specialists";
+					external_jobs += 1;
+				}
+			} else if (spec == "bert"){
+				spec_text += "Passed straight to Bert";
+				bert_jobs += 1;
+			} else {
+				spec_text += "Passed straight to External Specialists";
+				external_jobs += 1;
+			}
+		} else if ($("#n_specialist_").is(':visible')){
+			var spec = $("#n_specialist_").val();
+			
+			if (spec == "auto"){
+				if (nick_jobs <= external_jobs){
+					spec_text += "Passed straight to Nick";
+					nick_jobs += 1;
+				} else {
+					spec_text += "Passed straight to Daniel (External Specialist)";
+					external_jobs += 1;
+				}
+			} else if (spec == "nick"){
+				spec_text += "Passed straight to Nick";
+				nick_jobs += 1;
+			} else {
+				spec_text += "Passed straight to Daniel (External Specialist)";
+				external_jobs += 1;
+			}
+		} else if ($("#OS_specialist_").is(':visible')){
+			var spec = $("#OS_specialist_").val();
+			
+			if (spec == "auto"){
+				if (clara_jobs <= external_jobs){
+					spec_text += "Passed straight to Clara";
+					clara_jobs += 1;
+				} else {
+					spec_text += "Passed straight to Tara (External Specialist)";
+					external_jobs += 1;
+				}
+			} else if (spec == "clara"){
+				spec_text += "Passed straight to Clara";
+				clara_jobs += 1;
+			} else {
+				spec_text += "Passed straight to Tara (External Specialist)";
+				external_jobs += 1;
+			}
+		}
+		
+		alert(spec_text);
+			
+	});
+});
+
+$(document).ready(function(){
+	$('#createButton').click(function(){
+		var passed = true;
+		var s_text = "";
+		var l_text = "";
+		var fname = $("#specName").val();
+		var chose = $("#optSpec").val();
+		var dur = $('input[name="optradio"]:checked').val();
+		
+		
+		if (fname.replace(/\s/g, "") == "" || fname == ""){
+			alert("Name of Specialist is empty");
+			passed = false;
+		} else if (chose == "all"){
+			alert("Please Specify a Problem Type");
+			passed = false;
+		} else if ($('input[name="optradio"]').is(":checked") == false){
+			alert("Please choose a duration");
+			passed = false;
+		}
+		
+		if (passed) {
+			s_text += "External Specialist Made \n";
+			s_text += "Name: "+fname + "\nSpeciality: " + chose + "\nDuration: " + dur;
+			alert(s_text);
+			l_text += "External Specialist Created <br>";
+			l_text += "Name: "+fname + "<br>Speciality: " + chose + "<br>Duration: " + dur;
+			$('#logSpecial').html(l_text);
+		}
+		
+	});
+});
+</script>
+<style>
+body {
+	font-family: monaco, monospace;
+	background-color: #ffffff;
+}
+#header {
+	background-color: #d3d3d3;
+	margin-top:-5px;
+	margin-bottom:-10px;
+	color: #000000;
+	margin:0px;
+	padding:0px
+}
+#subheader {
+	background-color: #09070e;
+	margin-top:-5px;
+	margin-bottom:-10px;
+}
+#mainUpdate {
+	display: block;
+}
+#subtitle {
+	font-weight: bold;
+	font-size:30px;
+	padding-top: 10px;
+	width: 120px;
+	width:100%
+}
+.center {
+    align-items: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#specialist {
+	display: block;
+}
+
+#s_specialist {
+	display: none;
+}
+
+#h_specialist {
+	display: none;
+}
+
+#n_specialist {
+	display: none;
+}
+
+#OS_specialist {
+	display: none;
+}
+
+#s_specialist_ {
+	display: none;
+}
+
+#h_specialist_ {
+	display: none;
+}
+
+#n_specialist_ {
+	display: none;
+}
+
+#OS_specialist_ {
+	display: none;
+}
+
+.specialists_area {
+	display: none;
+	//visibility: hidden;
+}
+.special_area {
+	//display: none;
+	visibility: hidden;
+}
+hr.thickG {
+	border: 5px solid #d3d3d3;
+	background-color: #d3d3d3;
+	padding:0; margin:0;
+}
+.txtCenter {
+	text-align:center
+}
+.mainTable {
+	padding:5px;
+	width: 1050px;
+	//border: 1px solid black;
+	//border-collapse: collapse;
+}
+.unresolvedTable {
+	padding:5px;
+	width: 1050px;
+	font-size: 15px;
+	//border: 1px solid black;
+	//border-collapse: collapse;
+}
+.specialistTable{
+	padding:5px;
+	width: 1050px;
+	font-size: 15px;
+	//border: 1px solid black;
+	//border-collapse: collapse;
+}
+.widthS{
+	width:262.5px;
+	text-align:right;
+	padding-right:10px;
+	padding-left:10px;
+}
+.widthB{
+	width:787.5px;
+	text-align:left;
+	padding-right:10px;
+	padding-left:10px;
+}
+
+#errorMessage {
+	display:none;
+}
+#alert {
+	border:1px solid #dd0000; 
+	background-color:#fcf4f4; 
+	width:350px;
+	border-radius:5px;
+	font-family: Arial Nova;
+	margin: 0px auto;
+    width: 350px;
+    height: px;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    z-index: 10;
+}
+#alertTable {
+	color:#c40000;
+	background-image:url('Pictures/alert-icon.png');
+	background-size: 30px 30px;
+	background-repeat: no-repeat;
+	background-position:10px 5px;
+	width: 60px;
+}
+
+#queryTable {
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: #e0dcdc;
+	padding-top: 5px;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 15px;
+	width: 350px;
+}
+#submitR{
+	display:none;
+}
+#mainUpdate {
+	display: none;
+}
+input {
+	box-sizing: border-box;
+	border: 2px solid #949494;
+	border-radius: 4px;
+	border-width: thin;
+	width: 100%;
+	padding: 8px 10px;
+	outline: none;
+}
+input:focus {
+	border: 1px solid #188494;
+
+}
+.button {
+	cursor: pointer;
+	color: #FFFFFF;
+	text-align: center;
+	padding: 8px;
+	border-radius: 4px;
+	background-color: #18a4bc;
+	border: 1px solid #11505a; 
+}
+.button:hover {
+  background-color: #188494; 
+}
+#button {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	cursor: pointer;
+}
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: #FFFFFF;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover {
+	background-color: #111;
+	text-decoration: none;
+	color: #edb100;
+}
+
+#main_problem {
+	display:none;
+}
+#mainUnresolved{
+	display:none;
+}
+#mainExt {
+	display:none;
+}
+#submitR{
+	display:none;
+}
+.tableWidth{
+	width:500px;
+	font-size: 18px;
+	text-align: center;
+}
+label {
+    white-space:nowrap;
+}
+.wrappable {
+    white-space:normal;
+}
+input[type=ratio]{
+	width:auto;
+}
+</style>
+</head>
+
+<style>
+#main{
+	position: static;
+}
+#welcome{
+	position: static;
+}
+#footer{
+	position: static;
+}
+#advancedOptions{
+	//display: none;
+	position: absolute;
+	top: 90px;
+    left: 0;
+    right: 0;
+    background-color: #F6F6F6;
+    width: 860px;
+    margin: 0 auto;
+	z-index: 1;
+}
+.advOpt{
+	padding: 30px 20px;
+	text-align:left;
+}
+button#exitButton {
+  border-radius: 50%;
+  top: -15px;
+  right: -10px;
+  padding: 0.5em;
+  width: 30px;
+  height: 30px;
+  border: 2px solid black;
+  color: blue;
+  position: relative;
+  background-color: #ADD8E6;
+}
+button#exitButton:hover {
+  border: 2px solid black;
+  background-color: #f5d000;
+  color: #ffffff;
+}
+
+button#exitButton::before {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: black;
+  width: 2px;
+  left: 12px;
+  top: 5px;
+  bottom: 5px;
+  transform: rotate(45deg);
+}
+button#exitButton::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: black;
+  height: 2px;
+  top:12px;
+  left: 5px;
+  right: 5px;
+  transform: rotate(45deg);
+}
+
+//.grayout {
+	//display: none;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: black;
+	opacity: 0.5;
+	z-index: -5;
+	pointer-events: none;
+}
+#errorMessage{
+	position: static;
+}
+#main_load{
+	position: static;
+	background-color: white;
+}
+#main_problem{
+	position: static;
+}
+</style>
+<body>
+<div id="advancedOptions">
+	<div style="text-align: right;"><button id="exitButton" onclick="exitPopUp()"></button></div>
+	<script>
+	function exitPopUp(){
+		var advOpt = document.getElementById("advancedOptions");
+		advOpt.style.display = "none";
+		
+		var tab0 = document.getElementById("welcome");
+		tab0.classList.remove("grayout");
+		var tab1 = document.getElementById("main");
+		tab1.classList.remove("grayout");
+		var tab2 = document.getElementById("mainUpdate");
+		tab2.classList.remove("grayout");
+		var tab2a = document.getElementById("main_load");
+		tab2a.classList.remove("grayout");
+		var tab2b = document.getElementById("main_problem");
+		tab2b.classList.remove("grayout");
+		var tab3 = document.getElementById("mainUnresolved");
+		tab3.classList.remove("grayout");
+		var tab4 = document.getElementById("mainExt");
+		tab4.classList.remove("grayout");
+		var tab5 = document.getElementById("footer");
+		tab5.classList.remove("grayout");
+	}
+	function openPopUp(){
+		var advOpt = document.getElementById("advancedOptions");
+		advOpt.style.display = "block";
+		
+		var tab0 = document.getElementById("welcome");
+		tab0.classList.add("grayout");
+		var tab1 = document.getElementById("main");
+		tab1.classList.add("grayout");
+		var tab2 = document.getElementById("mainUpdate");
+		tab2.classList.add("grayout");
+		var tab3 = document.getElementById("mainUnresolved");
+		tab3.classList.add("grayout");
+		var tab4 = document.getElementById("mainExt");
+		tab4.classList.add("grayout");
+		var tab5 = document.getElementById("footer");
+		tab5.classList.add("grayout");
+	}
+	</script>
+	<table class="center advOpt" >
+	<col style="width:20%">
+	<col style="width:80%">
+	<tr>
+		<th style="text-align:center; padding-bottom:0px; width: 85vw" colspan="2" padding><h3><b>Advanced Options</b></h3><br></th>
+	</tr>
+	<tr>
+		<td><h5><b>Filter</b></h5></td>
+		<td>Apply one or more filters</td>
+	</tr>
+	<tr>
+		<td colspan="2"><hr style="background-color: #d8d4d4; width"></td>
+	</tr>
+	<tr>
+		<td><label>Problem Types</label></td>
+		<td>Dropdown of the problem types</td>
+	</tr>
+	<tr>
+		<td><label>Between Dates</label></td>
+		<td>[Start:year, month, day] [End:year, month, day]</td>
+	</tr>
+	<tr>
+		<td><label>Status</label></td>
+		<td>Resolved or Unresolved check boxes</td>
+	</tr>
+	<tr>
+		<td style="padding-top:30px;"><h5><b>Sort</b></h5></td>
+		<td style="padding-top:30px;">Choose a column to be sorted in ascending or descending order</td>
+	</tr>
+	<tr>
+		<td colspan="2"><hr style="background-color: #d8d4d4; width"></td>
+	</tr>
+	<tr>
+		<td><label>Primary</label></td>
+		<td>Dropdown including P_ID, P_Type and Priority (maybe more)</td>
+	</tr>
+	<tr>
+		<td><label>Secondary</label></td>
+		<td>Dropdown including P_ID, P_Type and Priority (maybe more)</td>
+	</tr>
+	<tr>
+		<td colspan="2"><br><hr style="background-color: #d8d4d4; width"></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="txtCenter">Apply Button (and maybe Clear Button)<button>Hit Me</button></td>
+	</tr>
+	</table>
+	<br>
+</div>
+<div id="header">
+	<div >&nbsp;</div>
+	<table style="width:100%;">
+		<td><img src="Pictures/miaLogo.png" style="cursor: pointer;" width="100px" height="100px" alt="Make-It-All Logo"></td>
+		<td class="txtCenter" style="font-size: 65px">Make-It-All</td>
+		<td style="text-align: right;"><img src="Pictures/miaLogo.png" style="cursor: pointer;" width="100px" height="100px" alt="Make-It-All Logo"></td>
+	</table>
+	<hr class="thickG">
+</div>
+<div id="subheader">
+	<h3 class="txtCenter" style="color:white;" id = "help">Helpdesk - New Problem</h3>
+</div>
+<div id="navigation">
+	<ul>
+		<li><a href="javascript:void(0)" onclick="openNewProblem();">New Problem</a></li>
+		<li><a href="javascript:void(0)" onclick="updateProblem();">Update Problem</a></li>
+		<li><a href="javascript:void(0)" onclick="unresolvedProblems();">All Unresolved Problems</a></li>
+		<li><a href="javascript:void(0)" onclick="addSpecialists();">Add Specialists</a></li>
+		<li style="float:right;"><a href="javascript:void(0)" onclick="signOut();">Sign out</a></li>
+		<script>
+			function openNewProblem(){
+				document.getElementById("mainUpdate").style.display = "none";
+				document.getElementById("mainUnresolved").style.display = "none";
+				document.getElementById("mainExt").style.display = "none";
+				document.getElementById("main").style.display = "block";
+				$("#help").text("Helpdesk - New Problem");
+			};
+			function updateProblem(){
+				document.getElementById("main").style.display = "none";
+				document.getElementById("mainUnresolved").style.display = "none";
+				document.getElementById("mainExt").style.display = "none";
+				document.getElementById("mainUpdate").style.display = "block";
+				$("#help").text("Helpdesk - Update Problem");
+			};
+			function unresolvedProblems(){
+				document.getElementById("main").style.display = "none";
+				document.getElementById("mainUpdate").style.display = "none";
+				document.getElementById("mainExt").style.display = "none";
+				document.getElementById("mainUnresolved").style.display = "block";
+				$("#help").text("Helpdesk - Unresolved Problems");
+			};
+			function addSpecialists(){
+				document.getElementById("main").style.display = "none";
+				document.getElementById("mainUpdate").style.display = "none";
+				document.getElementById("mainUnresolved").style.display = "none";
+				document.getElementById("mainExt").style.display = "block";
+				$("#help").text("Helpdesk - Add Specialists");
+			};
+			function signOut(){
+				location.href = "signin.php";
+			}
+			
+			
+		</script>
+		
+	</ul>
+</div>
+<div class="grayout" id="welcome">
+	<div >&nbsp;</div>
+	<h2 class="txtCenter">Welcome Alice</h2>
+	<div >&nbsp;</div>
+</div>
+<div class="grayout" id="main">
+	<div >&nbsp;</div>
+	<table class="center mainTable">
+	  <tr><!--Caller Subtitle-->
+		<th class="mainTable widthS" style="font-size:23px; text-align:left; padding-bottom:0px;" colspan="2"><b>Enter Caller Details:</b></th>
+	  </tr>
+	  <tr><!--Horizontal Rule-->
+		<td colspan="2"><hr style="background-color: #d8d4d4;"></td>
+	  </tr>
+	  <tr><!--First Name Deatils-->
+		<td class="mainTable widthS"><label for="fname">First Name: </label></td>
+		<td class="mainTable widthB"><input name="fname" type="text" class="larger" id='fname' size="18" autocomplete="off" style="width:725px;" placeholder="First Name"/></td>
+	  </tr>
+	  <tr><!--Surname Details-->
+		<td class="mainTable widthS"><label for="sname">Surname: </label></td>
+		<td class="mainTable widthB"><input name="sname" type="text" class="larger" id='sname' size="18" autocomplete="off"  style="width:725px;" placeholder="Surname"/></td>
+	  </tr>
+	</table>
+	<table class="center mainTable" style="padding-top:0;margin-top:0;"> 
+	<tr><!--Extension No and Emp ID-->
+		<td class="mainTable widthS" style="width:255px;"><label for="caller">Extension Number:</label></td>
+		<td class="mainTable widthS" style="text-align:left;"><input name="caller" type="number" class="larger" id='caller' size="18" autocomplete="off" min="0" max="99999" style="width:250px;" placeholder="-----"/></td>
+		
+		<td class="mainTable widthS" style="width:257px;"><label for="emp_id">Employee ID: </label></td>
+		<td class="mainTable widthS" style="text-align:left;"><input name="emp_id" type="text" class="larger" id='emp_id' size="18" autocomplete="off" style="width:202px;"  placeholder="EMP0000"/></td>
+	</tr></table>
+	<table class="center mainTable" style="padding-top:0;margin-top:0;">
+      <tr><!--Date Details-->
+		<td class="mainTable widthS" style="width:252px;"><label for="date">Date: </label></td>
+		<td class="mainTable widthB"><input id="date" type="datetime-local" name="date" size="18" autocomplete="on" style="width:250px;" ></td>
+	  </tr>
+	  <tr><!--Problem Subtitle-->
+		<th class="mainTable widthS" style="font-size:23px; text-align:left; padding-bottom:0px; padding-top:30px;" colspan="2"><b>Enter Problem Details:</b></th>
+	  </tr>
+	  <tr><!--Horizontal Rule-->
+		<td colspan="2"><hr style="background-color: #d8d4d4;"></td>
+	  </tr>
+	  <tr><!--Hardware Details-->
+		<td class="mainTable widthS"><label for="hard">Hardware: </label></td>
+		<td class="mainTable widthB"><input name="hard" type="text" class="larger" id='hard' size="18" style="width:725px;"  placeholder="Hardware"/></td>
+	  </tr>	  
+	  <tr><!--Software Details-->
+		<td class="mainTable widthS"><label for="soft">Software: </label></td>
+		<td class="mainTable widthB"><input name="soft" type="text" class="larger" id='soft' size="18" style="width:725px;" placeholder="Software"/></td>
+	  </tr>
+	  <tr><!--List of Problems-->
+		<td class="mainTable widthS"><label for="options">List of Problem Types:</label></td>
+		<td class="mainTable widthB">
+		<select id = "options" name = "options">
+			<option value="all" selected hidden>Not Specified</option>
+			<optgroup label = "Software">
+			<option value="soft">General Software</option>
+			<option value="word">Word</option>
+			<option value="os">Operating System</option>
+			<option value="mt">Microsoft Teams</option>
+			</optgroup>
+			<optgroup label = "Hardware">
+			<option value="hard">General Hardware</option>
+			<option value="key">Keyboard Issues</option>
+			<option value="pc">PC Issues</option>
+			<option value="mouse">Mouse Issues</option>
+			<option value="print">Printer Issues</option>
+			</optgroup>
+			<optgroup label = "----------------">
+			<option value="net">Network</option>
+			</optgroup>
+		</select>
+		</td>
+	  </tr>
+	  <tr><!--Problem Description Details-->
+		<td class="mainTable widthS" VALIGN=TOP><label for="descript">Problem Desciption:</label></td>
+		<td class="mainTable widthB"><textarea rows="2" cols="78" id="descript" placeholder="Problem Description"></textarea></td>
+	  </tr>
+	  <tr><!--Solution Details-->
+		<td class="mainTable widthS" VALIGN=TOP style="padding-top:12px;"><button id = "QuickButton" type="button" class="btn btn-info">Quick Solution</button></td>
+		<td class="mainTable widthB"><textarea rows="2" cols="78" id="QuickSolution" autocomplete="off" placeholder="Solution to problem"></textarea></td>
+	  </tr>
+	  <tr><!--List of Specialists-->
+		<td class="mainTable widthS" VALIGN=TOP><label class = "specialists_area">List of Specialists:</label></td>
+		<td class="mainTable widthB" placeholder="Specialists Available">
+			<div class = "specialists_area">
+				<div class="center">
+				<select id = 'specialist' name = "specialist" class = "">
+					<option value="default" disabled hidden>Select</option>
+					<option value="bert">Bert</option>
+					<option value="clara">Clara</option>
+					<option value="nick">Nick</option>
+					<option value="ex">Daniel</option>
+					<option value="ex">Tara</option>
+				</select>
+				<select id = 's_specialist' name = "s_specialist" class = "">
+					<option value="auto">Auto</option>
+					<option value="clara">Clara</option>
+					<option value="ex">Daniel</option>
+				</select>
+				<select id = 'h_specialist' name = "h_specialist" class = "">
+					<option value="auto">Auto</option>
+					<option value="bert">Bert</option>
+					<option value="ex">Tara</option>
+					<option value="ex">Daniel</option>
+				</select>
+				<select id = 'n_specialist' name = "n_specialist" class = "">
+					<option value="auto">Auto</option>
+					<option value="nick">Nick</option>
+					<option value="ex">Daniel</option>
+				</select>
+				<select id = 'OS_specialist' name = "n_specialist" class = "">
+					<option value="auto">Auto</option>
+					<option value="nick">Clara</option>
+					<option value="ex">Tara</option>
+				</select>
+				</div>
+				<b>Specialists Available:</b>
+				<div id = "SpecialistAvailability" class = ""></div>
+			</div>
+
+		</td>
+	  </tr>
+	  <tr><!--Horizontal Rule-->
+		<td colspan="2"><hr class="center" style="background-color: #000000; width:1000px;"></td>
+	  </tr>
+	  <tr><!--Specialist Name Deatils-->
+		<td class="specialistTable widthS" VALIGN=TOP><label for="spec">Priority: </label></td>
+		<td class="specialistTable widthB">
+			<label class="radio-inline"><input name="pri_radio" type="radio" value="l_pri"/>Low</label><br>
+			<label class="radio-inline"><input name="pri_radio" type="radio" value="m_pri"/>Medium</label><br>		
+			<label class="radio-inline"><input name="pri_radio" type="radio" value="h_pri"/>High</label>		
+		</td>
+	  </tr>
+	  <tr><!--Problem Resolved-->
+		<td class="mainTable widthS" VALIGN=TOP style="width:1050px;">Problem resolved:</td>
+		<td class="mainTable widthB" style="text-align:left; width:100px;">
+			<input type="checkbox" id="i_resolve" name="i_resolve" style="width:20px;"/>
+			Problem has been resolved
+		</td>
+	  </tr>
+	  <tr><!--Create Log Button-->
+		<td colspan="2" style="text-align: center; padding-top:20px;"><button id = "LogButton" type="button" class="btn btn-info">Create Log</button></td>
+	  </tr>
+	</table>
+
+	<div >&nbsp;</div>
+	
+	<div id = "probID" class = "txtCenter"></div>
+
+	<div id = "tempLog" class = "txtCenter"></div>
+</div>
+<div class="grayout" id="mainUpdate">
+	<div id="errorMessage" class="grayout">
+		<div >&nbsp;</div>
+		<table id="alert" class="center font">
+			<tr><td id="alertTable" rowspan="2" style="">
+			</td>
+			<td style="color:#c40000; font-size:19px;">
+			  There was a problem
+			</td></tr>
+			<tr><td style="color:#000000; font-size:14px; padding-top:6px">
+			  No problems with the corresponding problem ID was found.
+			</td></tr>
+		</table>
+	</div>
+
+	<div id="main_load" class="grayout">
+		<div >&nbsp;</div>
+		<button class="button center" onclick="hideButton()" type="submit" name="submitR" id="submitR" style="width:300px;">Load New Problem</button>
+		<script>
+			function hideButton() {
+				document.getElementById("submitR").style.display = "none";
+				document.getElementById("queryTable").style.display = "block";
+			};
+		</script>
+		<div >&nbsp;</div>
+		<table id="queryTable" class="center">
+			<tr><td id="subtitle">Load Problem</td></tr>
+			
+			<tr><td><b>Enter Problem ID:</b></td></tr>
+			<tr><td><input id="problem_id" name="problem_id" type="number" autofocus autocomplete="off" min = "0"></td></tr>
+			
+			<tr><td id="button"><button class="button" onclick="queryProblem()" type="submit" name="submit" id="submit" style="width:300px;">Load Details</button></td></tr>
+			<script type="text/javascript">
+				document.getElementById("problem_id") //If enter key pressed, then run button click function
+					.addEventListener("keyup", function(event) {
+					event.preventDefault();
+					if (event.keyCode === 13) {
+						document.getElementById("submit").click();
+					}
+				});
+				
+				function queryProblem() { //Load Problem function - If button clicked or enter key pressed, go to respective page
+					p_id = document.getElementById("problem_id").value;
+					var error = document.getElementById('errorMessage');
+					if (p_id == 247) {
+						document.getElementById("main_problem").style.display = "block";
+						error.style.display = 'none';
+						document.getElementById('submitR').style.display = "block";
+						document.getElementById('queryTable').style.display = "none";	
+						document.getElementById('main_problem').scrollIntoView({behavior: "smooth"});//scroll down to problem details
+					}
+					else{
+						document.getElementById("main_problem").style.display = "none";
+						error.style.display = 'block';
+					}
+				};
+			</script>
+		</table>
+	</div>
+	
+	<div id="main_problem" class="grayout">
+	<div >&nbsp;</div>
+	<table class="center mainTable" id = "prob247">
+	  <tr><!--Problem Subtitle-->
+		<th class="mainTable widthS" style="font-size:23px; text-align:left; padding-bottom:0px;" colspan="2"><b>Problem Details:</b></th>
+	  </tr>
+	  <tr><!--Horizontal Rule-->
+		<td colspan="2"><hr style="background-color: #d8d4d4;"></td>
+	  </tr>
+	  <tr><!--Problem ID-->
+		<td class="mainTable widthS">Problem ID:</td>
+		<td class="mainTable widthB">247</td>
+	  </tr>
+	  <tr><!--Call Time-->
+		<td class="mainTable widthS">Call Time:</td>
+		<td class="mainTable widthB">Jan 15 2019,4.25pm</td>
+	  </tr>
+	  <tr><!--Caller Details-->
+		<td class="mainTable widthS">Caller Details:</td>
+		<td class="mainTable widthB">Alphonse E. from HR., ext 34562</td>
+	  </tr>
+	  <tr><!--Software-->
+		<td class="mainTable widthS">Software:</td>
+		<td class="mainTable widthB">Windows 10</td>
+	  </tr>
+	  <tr><!--Hardware-->
+		<td class="mainTable widthS">Hardware:</td>
+		<td class="mainTable widthB">Lenovo Laptop</td>
+	  </tr>
+	  <tr><!--Problem Type-->
+		<td class="mainTable widthS">Problem Type:</td>
+		<td class="mainTable widthB"><label id = "prob_type">PC Issues</label></td>
+	  </tr>
+	  <tr><!--Description-->
+		<td class="mainTable widthS">Problem Description:</td>
+		<td class="mainTable widthB">Running really slowly, not responding and often crashing</td>
+	  </tr>
+	  <tr><!--Notes-->
+		<td class="mainTable widthS">Notes:</td>
+		<td class="mainTable widthB">Initial suggestion to re-boot.</td>
+	  </tr>
+	</table>
+	<table class="center mainTable">
+	  <tr><!--Solution Subtitle-->
+		<th class="mainTable widthS" style="font-size:23px; text-align:left; padding-bottom:0px;" colspan="2"><b>Update Problem:</b></th>
+	  </tr>
+	  <tr><!--Horizontal Rule-->
+		<td colspan="2"><hr style="background-color: #d8d4d4;"></td>
+	  </tr>
+	  <tr class = "special_lost"><!--Problem Resolved-->
+		<td class="mainTable widthS" VALIGN=TOP style="width:300px;">Problem resolved:</td>
+		<td class="mainTable widthB" style="text-align:left; width:1000px;">
+			<input type="checkbox" id="p_resolve" name="p_resolve" style="width:20px;">
+			Problem has been resolved
+		</td>
+	  </tr>
+	  <tr class = "special_lost"><!--Submit Button-->
+		<td style="text-align:center; padding-right:39px;" colspan="2">
+		<button class="button" type="submit" name="submitP" id="submitP" style="width:200px;">Continue</button></td>
+	  </tr>
+	  <tr class = "special_area"><!--List of Specialists-->
+		<td class="mainTable widthS" VALIGN=TOP>List Of Specialists:</td>
+		<td class="mainTable widthB"><div id = "special_list"></div></td>
+	  </tr>
+	  <tr class = "special_area"><!--Choose Specialists-->
+		<td class="mainTable widthS">Choose Specialist:</td>
+		<td class="mainTable widthB">
+			<div class="center">
+				<select id = 's_specialist_' name = "s_specialist" class = "">
+					<option value="auto">Auto</option>
+					<option value="clara">Clara</option>
+					<option value="ex">Daniel</option>
+				</select>
+				<select id = 'h_specialist_' name = "h_specialist" class = "">
+					<option value="auto">Auto</option>
+					<option value="bert">Bert</option>
+					<option value="ex">Tara</option>
+					<option value="ex">Daniel</option>
+				</select>
+				<select id = 'n_specialist_' name = "n_specialist" class = "">
+					<option value="auto">Auto</option>
+					<option value="nick">Nick</option>
+					<option value="ex">Daniel</option>
+				</select>
+				<select id = 'OS_specialist_' name = "n_specialist" class = "">
+					<option value="auto">Auto</option>
+					<option value="nick">Clara</option>
+					<option value="ex">Tara</option>
+				</select>
+			</div>
+		</td>
+	  </tr>
+	  <tr class = "special_area"><!--Submit Button-->
+		<td style="text-align:center; padding-right:39px;" colspan="2">
+		<button class="button" type="submit" name="submitP" id="submitII" style="width:200px;">Continue</button></td>
+	  </tr>
+	</table>
+	
+	</div>
+</div>
+<div class="grayout" id="mainUnresolved">
+	<div >&nbsp;</div>
+	<button class="button" onclick="openPopUp()">Hit Me to Add advanced options</button>
+	<table class="center unresolvedTable">
+	<!--Consider adding a date to the unresolved problems page-->
+		<tr><!--Solution Subtitle-->
+			<th class="mainTable widthS" style="font-size:23px; text-align:left; padding-bottom:0px;" colspan="2"><b>Unresolved Problem Details:</b></th>
+		</tr>
+		<tr><!--Horizontal Rule-->
+			<td colspan="3"><hr style="background-color: #d8d4d4;"></td>
+		</tr>
+		<tr>
+			<th class="tableWidth" style="font-size: 23px;">Problem ID</th>
+			<th class="tableWidth" style="font-size: 23px;">Problem Type</th>
+			<th class="tableWidth" style="font-size: 23px;">Specialist</th>
+		</tr>
+		<tr>
+			<td class="tableWidth">247</td>
+			<td class="tableWidth">PC Issues</td>
+			<td class="tableWidth">Bert</td>
+		</tr>		
+		<tr>
+			<td class="tableWidth">345</td>
+			<td class="tableWidth">General Software</td>
+			<td class="tableWidth">Clara</td>
+		</tr>
+		<tr>
+			<td class="tableWidth">346</td>
+			<td class="tableWidth">Word</td>
+			<td class="tableWidth">Clara</td>
+		</tr>
+		<tr>
+			<td class="tableWidth">347</td>
+			<td class="tableWidth">Microsoft Teams</td>
+			<td class="tableWidth">Daniel</td>
+		</tr>
+		<tr>
+			<td class="tableWidth">348</td>
+			<td class="tableWidth">General Hardware</td>
+			<td class="tableWidth">Bert</td>
+		</tr>
+		<tr>
+			<td class="tableWidth">349</td>
+			<td class="tableWidth">PC Issues</td>
+			<td class="tableWidth">Bert</td>
+		</tr>
+		<tr><!--Horizontal Rule-->
+			<td colspan="3"><hr class="center" style="background-color: #000000; width:1050px;"></td>
+		</tr>
+	</table>
+	<div >&nbsp;</div>
+	<button class="button center" type="submit" onclick="updateProblem()" style="width:200px;">Update Problem</button>
+	<div >&nbsp;</div>
+	<div >&nbsp;</div>
+	<div >&nbsp;</div>
+	<div >&nbsp;</div>
+</div>
+<div class="grayout" id="mainExt">
+	<div >&nbsp;</div>
+	<table class="center specialistTable">
+	  <tr><!--Specialist Subtitle-->
+		<th class="specialistTable widthS" style="font-size:23px; text-align:left; padding-bottom:0px;" colspan="2"><b>Specialist Details:</b></th>
+	  </tr>
+	  <tr><!--Horizontal Rule-->
+		<td colspan="2"><hr style="background-color: #d8d4d4;"></td>
+	  </tr>
+	  <tr><!--Specialist Name Deatils-->
+		<td class="specialistTable widthS"><label for="fname">External Specialist Name: </label></td>
+		<td class="specialistTable widthB"><input name="fname" type="text" class="larger" id='specName' size="18" autocomplete="off" style="width:725px;" placeholder="Name"/></td>
+	  </tr>
+	  <tr><!--Specialty Type-->
+		<td class="specialistTable widthS"><label for="spec">Problem Specialty: </label></td>
+		<td class="specialistTable widthB">
+		<select id = "optSpec" name = "options">
+			<option value="all" selected hidden>Not Specified</option>
+			<optgroup label = "Software">
+			<option value="soft">General Software</option>
+			<option value="word">Word</option>
+			<option value="os">Operating System</option>
+			<option value="mt">Microsoft Teams</option>
+			</optgroup>
+			<optgroup label = "Hardware">
+			<option value="hard">General Hardware</option>
+			<option value="key">Keyboard Issues</option>
+			<option value="pc">PC Issues</option>
+			<option value="mouse">Mouse Issues</option>
+			<option value="print">Printer Issues</option>
+			</optgroup>
+			<optgroup label = "----------------">
+			<option value="net">Network</option>
+			</optgroup>
+		</select>
+		</td>
+	  </tr>
+	  <tr><!--Specialist Name Deatils-->
+		<td class="specialistTable widthS" VALIGN=TOP><label for="spec">Duration: </label></td>
+		<td class="specialistTable widthB">
+			<label class="radio-inline"><input name="optradio" type="radio" value="One-off"/>One-off</label><br>
+			<label class="radio-inline"><input name="optradio" type="radio" value="3 weeks"/>3 weeks</label>		
+		</td>
+	  </tr>
+	  <tr><!--Horizontal Rule-->
+		<td colspan="2"><hr class="center" style="background-color: #000000; width:1050px;"></td>
+	  </tr>
+	  <tr><!--Button-->
+		<td class="specialistTable txtCenter" colspan="2">
+		<button id = "createButton" type="button" class="btn btn-info">Create Specialist</button>
+		</td>
+
+	  </tr>
+	</table>
+	<div >&nbsp;</div>
+	<div id = "logSpecial" class = "txtCenter"></div>
+	<div >&nbsp;</div><div >&nbsp;</div><div >&nbsp;</div><div >&nbsp;</div>
+</div>
+<div class="grayout" id="footer">
+	<br><hr><br>
+	<p class="txtCenter" style="font-size:12px;">© 1996-2021, Make-It-All, Inc. or its affiliates</p>
+	<br>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+﻿EMPNO,OPERATORID,SPECIALISTID,PID,HARDWARE,SOFTWARE,SERIALNO,PROBTYPE,PROBDESCR,NOTES,INITIALDATE,UPDATEDDATE,PRIORITY,STATUS
+1101,1001,1003,325,HP Laptop,Windows 8,,HARDWARE,Laptop running very slowly,"Initial suggestion to re-boot. | Oct 3, 9.30am – caller phoned back to say rebooting didn’t work. Clara  assigned to problem. | Oct 5, 4.00pm – Clara called to say Windows CleanUp used to tidy up  disc space and delete unused temporary files. User can access Windows more easily and speedily.",2016-10-03 09:00:00,2016-10-05 16:00:00,,RESOLVED
+1102,1001,1003,326,Asus Laptop,"Windows 10, Outlook 365",,NETWORK,"
+
+Email may have been hacked when using an external server","Passed straight to Clara. | Oct 4, 9.00pm – Clara called. Anti-virus software checks carried out,  etc. Computer appears to be uninfected, but can’t tell if any data has been stolen. User given an extensive  lecture on the dangers of using the wrong email  server. ",2016-10-03 09:15:00,2016-10-04 09:00:00,,RESOLVED
+1103,1001,1002,327,CD Rom Reader on Sony Vaio VPCX13C7E Desktop,All media software,No. CNU327BHP7,HARDWARE,Tendency to eject CDs early,"Passed to Bert | Oct 5, 4.00pm – Bert called to add that though the user said the CD  was not strictly necessary he was concerned it could  lead him on a right “song and dance” if  he was ejected too soon. Therefore new CD reader ordered. | Oct 15, 10.05am – Bert called to say new CD reader now installed. As  it was a new series CD reader, the problem will not  occur again. ",2016-10-04 09:20:00,2016-10-15 10:05:00,,RESOLVED
+1104,1001,1003,328,,Network Firewall,,NETWORK,Concerned about the strength of the firewall. In particular wants to keep out illegal messages from Mexico.,"Passed straight to Clara. | Oct 5, 9.00am – Clara called. Passed to Nick as it was a network  problem. | Oct 6, 10.15am – Nick called. Stronger firewall researched and costed  and passed to Mr. Trump. Costs are high so probably will never be implemented. ",2016-10-04 16:15:00,2016-10-06 10:15:00,,RESOLVED
+1105,1001,1002,247,Lenovo Laptop,Windows 10,,Pc Issues,"Running really slowly, not responding and often crashing",Initial suggestion to re-boot.,2019-01-15 16:25:00,2019-01-15 16:25:00,HIGH,UNRESOLVED
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,

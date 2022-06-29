@@ -1,0 +1,44 @@
+---Team Projects make it all Feedback and Improvements
+Some of the questions:
+Q1. As a manager of the team, how would a manager be able to keep track of progress of the team and task
+Q2. Do we have due dates for the tasks?
+Q3. How do we see how many tasks are finished/incomplete in terms of database or helpdesk page etc.?
+Q4. If any specialist goes on holiday or sickness leave, is there a way to add that to the system so we're not assigning issues to specialists who arent available?
+Q5. In trerms of equipment, is there any way that a user or specialist can add the helpdesk be able to edit the list of verified and good software and hardware when we transfer between equipment.
+Q6. How is security in terms of if i press back will someone be able to get back into the website?
+Q7. Click too many times!!
+Q8. How will the operator find out that a problem is unresolved or the specialist was unable to solve an issue to reassign the issue?
+Q9. Theres no data analysis, a way of seeing that x hardware/spftware has been causing lots of problems, so consider dropping that software
+
+Helpdesk Page
+- A way to reopenand edit a a case once its been resolved
+- A register page once you've entered the details of an external specialist
+- A way to remove an external specialist from the database automatically after a set period of time
+- (Q8) Notification when a specialist was unable to solve the issue, so helpdesk operator can reassign when they see the notification
+
+Specialist Page
+- Find a way to search though related problems and click on it straight away and it'll take you to the data, so specialist don't waste time solving problems that have been solved in the past
+- Add a way to mark specialist as away incase of sickness leave, or unavailable &/or tell the automatically tell the helpdesk operator that the user is unavailble so they can reassign issues to new specialist
+
+General Webpage
+- Consider security in terms of being able to sign out and not press back.
+- Consider making the navigation bar stay highlighted once you've opened and stuck to a page the hover/shaded. It makes navigation easier
+- (Q7) When clicking on a column automatically sort
+- (Q7) When clicking on a row or button to automatically open the problem details, instead of going on another page, entering the number etc
+- (Q9) Increase data representation and data analysis of the problems, eg old software causing lots of problems. [consider this as a good extension of the webpage]
+- Use post instead of get when doing sql statements, especially with sensitive information
+- Develop using externall css first to save time later when trying to make everything external after, which causes unforseen problems.
+- Convery jQuery to JS as soon as you realise that you need to only use JS instead of leaving it to the last minute
+- Start developing with external JS than using internal, it make things look neater and better than moving everything to external at the last minute
+- Fix the order sort for the priotity so its not based off a  string but off a specific order
+	- eg. using this method: https://sqlandme.com/2013/11/18/sql-server-custom-sorting-in-order-by-clause/
+-Dynamically make dropdowns based off the specialist in the database
+	-  eg. https://stackoverflow.com/questions/9275972/creating-dropdown-dynamically-javascript 
+	- consider using the link above merging xml/sql/php/js
+- Style the dropdown so its similar/works with the rest of the webpage (consistancy)
+- Consider using $_REQUEST so its easier to change code between GET and POST requests if need be
+
+Teamwork planning and delegation
+- (Q3)A good thing to add will be the arranging in terms of the type of the task and then maybe priority of the tasks within that group
+- Gannt Charts to manage what tasks need to be done by who and by when
+

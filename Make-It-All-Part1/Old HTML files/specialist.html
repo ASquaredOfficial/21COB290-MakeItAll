@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Technical Support</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="robots" content="width=device-width" />
+<link rel="shortcut icon" href="Pictures/miaLogo.png" type="image/png">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script></script>
+<style>
+body {
+	font-family: monaco, monospace;
+	background-color: #ffffff;
+}
+#header {
+	background-color: #d3d3d3;
+	margin-top:-5px;
+	margin-bottom:-10px;
+	color: #000000;
+}
+#subheader {
+	background-color: #09070e;
+	margin-top:-5px;
+	margin-bottom:-10px;
+}
+.center {
+    align-items: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+hr.thickG {
+	border: 5px solid #d3d3d3;
+	background-color: #d3d3d3;
+	padding:0; margin:0;
+}
+.txtCenter {
+	text-align:center
+}
+#queryTable {
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: #e0dcdc;
+	padding-top: 5px;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 15px;
+	width: 350px;
+}
+#subtitle {
+	font-weight: bold;
+	font-size:30px;
+	padding-top: 10px;
+	width: 120px;
+	width:100%
+}
+.formHeader {
+	padding-top:10px;
+	font-size: 13px;
+	font-family: Arial Nova;
+}
+input {
+	box-sizing: border-box;
+	border: 2px solid #949494;
+	border-radius: 4px;
+	border-width: thin;
+	width: 100%;
+	padding: 8px 10px;
+	outline: none;
+}
+input:focus {
+	border: 1px solid #188494;
+
+}
+.button {
+	cursor: pointer;
+	color: #FFFFFF;
+	text-align: center;
+	padding: 8px;
+	border-radius: 4px;
+	background-color: #18a4bc;
+	border: 1px solid #11505a; 
+}
+.button:hover {
+  background-color: #188494; 
+}
+#button {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	cursor: pointer;
+}
+#disclaimer {
+	padding-top: 15px;
+	font-size: 12px;
+	line-height: 1.4;
+	padding-bottom: 20px;
+	font-family: Arial Nova ;
+}
+#errorMessage {
+	display:none;
+}
+#alert {
+	border:1px solid #dd0000; 
+	background-color:#fcf4f4; 
+	width:350px;
+	border-radius:5px;
+	font-family: Arial Nova;
+	margin: 0px auto;
+    width: 350px;
+    height: px;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    z-index: 10;
+}
+#alertTable {
+	color:#c40000;
+	background-image:url('Pictures/alert-icon.png');
+	background-size: 30px 30px;
+	background-repeat: no-repeat;
+	background-position:10px 5px;
+	width: 60px;
+}
+.mainTable {
+	padding:5px;
+	width: 1050px;
+	//border: 1px solid black;
+	//border-collapse: collapse;
+}
+.widthS{
+	width:262.5px;
+	text-align:right;
+	padding-right:10px;
+	padding-left:10px;
+}
+.widthB{
+	width:787.5px;
+	text-align:left;
+	padding-right:10px;
+	padding-left:10px;
+}
+
+#main_problem {
+	display:none;
+}
+#submitR{
+	display:none;
+}
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+li {
+	float: left;
+}
+li a {
+	display: block;
+	color: #FFFFFF;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover {
+	background-color: #111;
+	text-decoration: none;
+	color: #edb100;
+}
+.txtCenter {
+	text-align:center
+}
+#myUnresolved{
+	display:block;
+}
+#main_load{
+	display:none;
+}
+.unresolvedTable{
+	padding:5px;
+	width: 1050px;
+	//border: 1px solid black;
+	//border-collapse: collapse;
+}
+</style>
+</head>
+
+<body>
+
+
+<div id="header">
+	<div >&nbsp;</div>
+	<table style="width:100%;">
+		<td><img src="Pictures/miaLogo.png" style="cursor: pointer;" width="100px" height="100px" alt="Make-It-All Logo"></td>
+		<td class="txtCenter" style="font-size: 65px">Make-It-All</td>
+		<td style="text-align: right;"><img src="Pictures/miaLogo.png" style="cursor: pointer;" width="100px" height="100px" alt="Make-It-All Logo"></td>
+	</table>
+	<hr class="thickG">
+</div>
+<div id="subheader">
+	<h3 class="txtCenter" id="tech" style="color:white;">Technical Specialist - My Unresolved Problems</h3>
+</div>
+<div id="navigation">
+	<ul>
+		<li><a href="javascript:void(0)" onclick="loadQueryTable();">Load Problem</a></li>
+		<li><a href="javascript:void(0)" onclick="loadMainProlem()">Provide Solution</a></li>
+		<li><a href="javascript:void(0)" onclick="unresolvedProblems();">My Unresolved Problems</a></li>
+		<li><a href="javascript:void(0)" onclick="allProblems();">All Problems</a></li>
+		<li style="float:right;"><a href="javascript:void(0)" onclick="signOut();">Sign out</a></li>
+		<script>
+			function loadQueryTable() {
+				document.getElementById("main_problem").style.display = "none";
+				document.getElementById("myUnresolved").style.display = "none";
+				document.getElementById("main_load").style.display = "block";
+				$("#tech").text("Technical Specialist - Load Problems");
+			};
+			function loadMainProlem() {
+				document.getElementById("main_load").style.display = "none";
+				document.getElementById("myUnresolved").style.display = "none";
+				document.getElementById("main_problem").style.display = "block";
+				$("#tech").text("Technical Specialist - Provide Solutions");
+			};
+			function unresolvedProblems(){
+				document.getElementById("main_load").style.display = "none";
+				document.getElementById("main_problem").style.display = "none";
+				document.getElementById("myUnresolved").style.display = "block";
+				$("#tech").text("Technical Specialist - Unresolved Problems");
+			};
+			function allProblems(){
+				document.getElementById("main_load").style.display = "none";
+				document.getElementById("main_problem").style.display = "none";
+				document.getElementById("myUnresolved").style.display = "block";
+				$("#tech").text("Technical Specialist - All Problems");
+			};
+			function signOut(){
+				location.href = "signin.php";
+			}
+		</script>
+	</ul>
+</div>
+<div id="welcome">
+	<div >&nbsp;</div>
+		<h2 class="txtCenter">Welcome Clara</h2>
+</div>
+<div id="errorMessage">
+	<div >&nbsp;</div>
+	<table id="alert" class="center font">
+		<tr><td id="alertTable" rowspan="2" style="">
+		</td>
+		<td style="color:#c40000; font-size:19px;">
+		  There was a problem
+		</td></tr>
+		<tr><td style="color:#000000; font-size:14px; padding-top:6px">
+		  No problems with the corresponding problem ID was found.
+		</td></tr>
+	</table>
+</div>
+<div id="main_load">
+	<div >&nbsp;</div>
+	<script>
+		
+	</script>
+	<div >&nbsp;</div>
+	<table id="queryTable" class="center">
+		<tr><td id="subtitle">Load Problem</td></tr>
+		
+		<tr><td><b>Enter Problem ID:</b></td></tr>
+		<tr><td><input id="problem_id" name="problem_id" type="number" autofocus autocomplete="off" min = "0"></td></tr>
+		
+		<tr><td id="button"><button class="button" onclick="loadProblem()" type="submit" name="submit" id="submit" style="width:300px;">Load Details</button></td></tr>
+		<script type="text/javascript">
+			document.getElementById("problem_id") //If enter key pressed, then run button click function
+				.addEventListener("keyup", function(event) {
+				event.preventDefault();
+				if (event.keyCode === 13) {
+					document.getElementById("submit").click();
+				}
+			});
+			
+			function loadProblem() { //Load Problem function - If button clicked or enter key pressed, go to respective page
+				p_id = document.getElementById("problem_id").value;
+				var error = document.getElementById('errorMessage');
+				if (p_id == 326) {
+					document.getElementById("main_problem").style.display = "block";	//unhide problem details
+					error.style.display = 'none';	//hide error section (if open)
+					document.getElementById('main_load').style.display = "none";	//hide lod problem section
+					document.getElementById('main_problem').scrollIntoView({behavior: "smooth"});//scroll down to problem details
+				}
+				else{
+					error.style.display = 'block';
+				}
+			};
+		</script>
+	</table>
+</div>
+<div id="main_problem">
+	<table class="center mainTable">
+	  <tr><!--Problem Subtitle-->
+		<th class="mainTable widthS" style="font-size:23px; text-align:left; padding-bottom:0px;" colspan="2"><b>Problem Details:</b></th>
+	  </tr>
+	  <tr><!--Horizontal Rule-->
+		<td colspan="2"><hr style="background-color: #d8d4d4;"></td>
+	  </tr>
+	  <tr><!--Problem ID-->
+		<td class="mainTable widthS">Problem ID:</td>
+		<td class="mainTable widthB">326</td>
+	  </tr>
+	  <tr><!--Call Time-->
+		<td class="mainTable widthS">Call Time:</td>
+		<td class="mainTable widthB">Oct 3 2016,9.15am</td>
+	  </tr>
+	  <tr><!--Caller Details-->
+		<td class="mainTable widthS">Caller Details:</td>
+		<td class="mainTable widthB">Hillary C. from Legal Dept., ext 22999</td>
+	  </tr>
+	  <tr><!--Software-->
+		<td class="mainTable widthS">Software:</td>
+		<td class="mainTable widthB">Windows 10, Outlook 365</td>
+	  </tr>
+	  <tr><!--Hardware-->
+		<td class="mainTable widthS">Problem description:</td>
+		<td class="mainTable widthB">Email may have been haked when using an external server.</td>
+	  </tr>
+	  <tr><!--Notes-->
+		<td class="mainTable widthS">Notes:</td>
+		<td class="mainTable widthB">Passed straight to Clara.</td>
+	  </tr>
+	</table>
+	
+	<table class="center mainTable">
+	  <tr><!--Solution Subtitle-->
+		<th class="mainTable widthS" style="font-size:23px; text-align:left; padding-bottom:0px;" colspan="2"><b>Update Problem:</b></th>
+	  </tr>
+	  <tr><!--Horizontal Rule-->
+		<td colspan="2"><hr style="background-color: #d8d4d4;"></td>
+	  </tr>
+	  <tr><!--Problem Resolved-->
+		<td class="mainTable widthS" VALIGN=TOP style="width:1050px;">Problem resolved:</td>
+		<td class="mainTable widthB" style="text-align:left; width:100px;">
+			<input type="checkbox" id="p_resolve" name="p_resolve" style="width:20px;"/>
+			Problem has been resolved
+		</td>
+	  </tr>
+	  <tr><!--Update Notes Input-->
+		<td class="mainTable widthS" VALIGN=TOP style="width:1050px;">Add to Note:</td>
+		<td class="mainTable widthB"><textarea rows="3" cols="70" id="descript" placeholder="Notes or solution."></textarea></td>
+	  </tr>
+	  <tr><!--Submit Button-->
+		<td style="text-align:right; padding-right:39px;" colspan="2">
+		<button class="button" onclick="updateProblem()" type="submit" name="submitP" id="submitP" style="width:200px;">Update Problem</button></td>
+		<script>
+		function updateProblem() { //Load Problem function - If button clicked or enter key pressed, go to respective page
+			var currentdate = new Date(); 
+			//file log has been updated somehow
+			document.getElementById('header').scrollIntoView({behavior: "smooth"});//scroll back to top of page
+			alert('Problem log has been updated');
+			};
+		
+		</script>
+		
+	  </tr>
+	</table>
+</div>
+<div id="myUnresolved">
+	<div >&nbsp;</div>
+	<table class="center unresolvedTable">
+	<!--Consider adding a date to the unresolved problems page-->
+		<tr>
+		<select id = 'sorts' name = "sorts" class = "" style="float:right;">
+			<option value="none">None</option>
+			<option value="bert">Problem Types</option>
+			<option value="clara">Problem ID</option>
+			<option value="nick">Priority</option>
+			<option value="ex">Specialist</option>
+			<option value="ex">Serial number</option>
+		</select>
+		<label class = "specialists_area" style="float:right;">Sorts:</label>
+		</tr>
+		<tr><!--Solution Subtitle-->
+			<th class="mainTable widthS" style="font-size:23px; text-align:left; padding-bottom:0px;" colspan="2"><b>Unresolved Problem Details:</b></th>
+		</tr>
+		<tr><!--Horizontal Rule-->
+			<td colspan="3"><hr style="background-color: #d8d4d4;"></td>
+		</tr>
+		<tr>
+			<th class="tableWidth" style="font-size: 23px;">Problem ID</th>
+			<th class="tableWidth" style="font-size: 23px;">Problem Type</th>
+			<th class="tableWidth" style="font-size: 23px;">Name</th>
+		</tr>		
+		<tr>
+			<td class="tableWidth">326</td>
+			<td class="tableWidth">General Software</td>
+			<td class="tableWidth">Hillary</td>
+		</tr>
+		<tr>
+			<td class="tableWidth">345</td>
+			<td class="tableWidth">General Software</td>
+			<td class="tableWidth">Adrian</td>
+		</tr>
+		<tr>
+			<td class="tableWidth">346</td>
+			<td class="tableWidth">Word</td>
+			<td class="tableWidth">Christopher</td>
+		</tr>
+		<tr><!--Horizontal Rule-->
+			<td colspan="3"><hr class="center" style="background-color: #000000; width:1050px;"></td>
+		</tr>
+	</table>
+	<div >&nbsp;</div>
+	<button class="button center" type="submit" onclick="loadQueryTable()" style="width:200px;">Load Problem</button>
+	<div >&nbsp;</div>
+	<div >&nbsp;</div>
+	<div >&nbsp;</div>
+	<div >&nbsp;</div>
+</div>
+<div id="footer">
+	<br><br><br><hr><br>
+	<p class="txtCenter" style="font-size:12px;">© 1996-2021, Make-It-All, Inc. or its affiliates</p>
+	<br>
+</div>
+</body>
+
+
+</html>
