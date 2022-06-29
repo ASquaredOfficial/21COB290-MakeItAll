@@ -1,0 +1,37 @@
+<script src="/js/navbar.js"></script>
+
+<nav id="top-nav">
+
+    <div class="nav-left">
+        <img class="profile_img" src="/images/ProfileIcon.png">
+        <div id="navHeadIndent">
+            <b id="navHeader"><%= navbar.page %></b>
+            <div id="navHeader2"><%= navbar.user %></div>
+        </div>
+    </div>
+
+    <ul id="navList">
+            <li>
+                <div class="nav-right">
+                    <button id="logoutButton" class="pointer">
+                        Logout
+                    </button>
+                </div>
+            </li>
+            
+    <% if (navbar) { %>
+        <% navbar.links.forEach(element => { %>
+            <li>
+                <a href="<%= element.url %>" class="nav-link" >
+                    <div class="navOption pointer">
+                        <div class="navText"><%= element.text %></div>
+                        <div class="<%= element.underline %>">
+                            <span style="visibility: hidden;"><%= element.text %></span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        <% }) %>
+    <% } %>
+    </ul>
+</nav>

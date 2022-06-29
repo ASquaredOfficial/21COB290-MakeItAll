@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head') -%>
+    <script src="/js/user.js" defer></script>
+</head>
+
+<body>
+    <%- include('navbar') -%>
+    <div id="mainLogPage" class="center">
+        <div id="searchGroup" class="center">
+            <select id="userSearchDropdown" type="text" name="priority" class="dropInput pointer">
+                <option value="all" selected>All</option>
+                <option value="pID">ID</option>
+                <option value="empName">Name</option>
+                <option value="probDesc">Description</option>
+                <option value="probType">Problem Type</option>
+                <option value="probHard">Hardware</option>
+                <option value="probSoft">Software</option>
+                <option value="probDate">Date</option>
+                <option value="probStat">Status</option>
+            </select>
+            <input class="center searchInput" name="searchInput" type="text" id='userSearchBar' autocomplete="off" placeholder="Search"/>
+            <span style="width:0px;"></span>
+            <button id="searchButton" onclick="userSearch()">Search</button>
+            <button id="filterButton" onclick="showFilters()">Filter<img id="filterIcon" src="/images/FilterIcon.png"></button>
+        </div>
+        <br>
+        <table id="logTable" class="center log_Table">
+            <colgroup>
+                <col style="width: 5%;">
+                <col style="width: 10%;">
+                <col style="width: 32%;">
+                <col style="width: 11%;">
+                <col style="width: 11%;">
+                <col style="width: 11%;">
+                <col style="width: 11%;">
+                <col style="width: 8%;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="log_Table order">Problem ID</th>
+                    <th class="log_Table order">Specialist's Name</th>
+                    <th class="log_Table order">Problem Description</th>
+                    <th class="log_Table order">Problem Type</th>
+                    <th class="log_Table order">Hardware</th>
+                    <th class="log_Table order">Software</th>
+                    <th class="log_Table order">Initial Date</th>
+                    <th class="log_Table order">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < logs.length; i++) { %>
+                    <tr id="prob<%= logs[i].pId %>" class="probRow" onclick="window.location='/ticket/mylogs/ticketdetails/<%= logs[i].pId %>';">
+                        <td id="probIDNo<%= logs[i].pId %>" class="log_Table <%= logs[i].pUrgy %>"><%= logs[i].pId %></td>
+                        <td id="probName<%= logs[i].pId %>" class="log_Table"><%= logs[i].cName %></td>
+                        <td id="probDesc<%= logs[i].pId %>" class="log_Table"><%= logs[i].pDesc %></td>
+                        <td id="probType<%= logs[i].pId %>" class="log_Table"><%= logs[i].pType %></td>
+                        <td id="probHard<%= logs[i].pId %>" class="log_Table"><%= logs[i].pHard %></td>
+                        <td id="probSoft<%= logs[i].pId %>" class="log_Table"><%= logs[i].pSoft %></td>
+                        <td id="probDate<%= logs[i].pId %>" class="log_Table"><%= logs[i].pDate %></td>
+                        <td id="probStat<%= logs[i].pId %>" class="log_Table"><%= logs[i].pStat %></td>
+                    </tr>
+                <% } %>
+                <% if(logs.length == 0){ %>
+                    <td colspan="8" class="log_Table" style="padding: 20px 0px;">No Submitted Tickets Found</td>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <div id="filterOptions">
+        <div style="float: right; display: inline;"><button id="exitButton" onclick="hideFilters()"></button></div>
+        <h2 class="ticketSubtitle"><u class="gold">Update Ticket</u></h2>
+        <h3 id="filterTitle">Filter Options</h3>
+
+        <form id='filterForm' method='post' action="mylogs">
+            <h3 class="filterSubtitle">Priority</h3>
+            <input type="checkbox" id="checkClosed" name="closedBox">
+            <label for="closedBox"> Closed</label><br>
+            <input type="checkbox" id="checkLow" name="lowBox">
+            <label for="lowBox"> Low</label><br>
+            <input type="checkbox" id="checkMedium" name="mediumBox">
+            <label for="mediumBox"> Medium</label><br>
+            <input type="checkbox" id="checkHigh" name="highBox">
+            <label for="highBox"> High</label><br>
+            
+            <h3 class="filterSubtitle">Date</h3>
+            <input type="date" id="filterDate1" class="dateInput" name="filterDate1">
+            <p style="margin:0px; display:inline;">to</p>
+            <input type="date" id="filterDate2" class="dateInput" name="filterDate2"><br>
+
+            <h3 class="filterSubtitle">Status</h3>
+            <input type="checkbox" id="checkOpen" name="openBox">
+            <label for="openBox"> Open</label><br>
+            <input type="checkbox" id="checkPending" name="pendingBox">
+            <label for="pendingBox"> Pending</label><br>
+            <input type="checkbox" id="checkSolved" name="solvedBox">
+            <label for="solvedBox"> Solved</label><br><br>
+        </form>
+        <div class="txtCenter">
+            <button class="filterPopupButton" onclick="clearFilters()">Clear</button>
+            <button class="filterPopupButton" onclick="submitFilters()">Submit</button>
+        </div>
+    </div>
+    <button id="toTopButton" onclick="topFunction()" style="display: none;"><img id="upIcon" src="../images/UpButtonIcon.png"></button>
+    <%- include('footer') -%>
+</body>
+
+</html>

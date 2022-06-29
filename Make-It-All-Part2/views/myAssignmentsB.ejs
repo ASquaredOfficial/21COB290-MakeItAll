@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<%- include('head') -%>
+	<script src="/js/specialist.js" defer></script>
+</head>
+
+<body>
+	<%- include('navbar') -%>
+		<div id="wrapper" class="center">
+			<div style="padding-top: 85px;">
+				<aside id="aside">
+					<h2 id="toDoTitle" class="txtCenter">To-Do</h2>
+					<hr id="todoHr">
+					<% for(var i=0; i < todo.length; i++) { %>
+						<div id="<%- todo[i].id %>"  class="toDos" onclick="window.location=`${window.location.href.substring(0,window.location.href.lastIndexOf('/'))}/<%= todo[i].pId %>`;">
+							<div class="priorityBox <%= todo[i].pUrgy %>"></div>
+							<div>Ticket No. <%= todo[i].pId %>
+								<br>Problem Type: <%= todo[i].pType %>
+								<br>Requested <%= todo[i].daysSince %> days ago
+							</div>
+						</div>
+					<% } %>
+					<div class="toDos <%= logsPresent %> NullToDoMessage txtCenter">
+              <b>There are no more tickets assigned to you!</b>
+          </div>
+				</aside>
+			</div>
+			<article id="article">
+				<div id="mainContainer">
+					<div style="display: none;">
+						<!--TODO Similar Problems section-->
+						Similar Problems stuff - hasnt been added yet! TBD...
+					</div>
+					<div id="ticketContainer" class="center">
+						<h2 id="ticketTitle">Ticket - <span id="probIDHead">
+							<%= log.pId %>
+						</span></h2>
+						<hr class="normalHr">
+						<div id="ticketDetails">
+							<h3 class="ticketSubtitle"><u class="gold">Ticket Details</u></h3>
+							<p class="myAssignsFont">Problem ID: <%= log.pId %></p>
+							<p class="myAssignsFont">Call: <%= log.pCreateDate %></p>
+							<p class="myAssignsFont">Employee: <%= log.cName %></p>
+							<p class="myAssignsFont">Phone No: <%= log.phoneNo %></p>
+							<p class="myAssignsFont">Software: <%= log.pSoft %></p>
+							<p class="myAssignsFont">Hardware: <%= log.pHard %></p>
+							<p class="myAssignsFont">Problem Type: <%= log.pType %></p>
+							<p class="myAssignsFont">Problem description: <%= log.pDesc %></p>
+							<div id="notesDiv">
+								<div style="float:left"><table><tr><td class="myAssignsFont">
+									Notes:
+								</td></tr></table></div>
+								<table>
+									<% if (log.pNotes?.length) { %>
+
+										<% for (var j = 0; j < log.pNotes.length; j++) { %>
+											<% if (j == 0) { %>
+												<tr><td class="myAssignsFont"><%= log.pNotes[j][0] %></td></tr>
+											<% } else { %>
+												<tr><td class="myAssignsFont"><%= log.pNotes[j][0] %> - <%= log.pNotes[j][1] %></td></tr>
+											<% } %>
+										<% } %>
+									<% } %>
+								</table>
+							</div>
+						</div><br>
+						<div id="updateTicket">
+							<h3 class="ticketSubtitle"><u class="gold">Update Ticket</u></h3>
+							<form method="post" action="./">
+								<div style="margin-top:10px">
+									<p style="display:inline; vertical-align:top;">Notes:</p><br>
+									<input name="ticketID" value="<%= log.pId %>" style="display:none;"></input>
+									<textarea id="addNotes"  name="addNotes" rows="3" cols="80" autocomplete="off"
+										placeholder="Notes for ticket"></textarea>
+								</div>
+								<div>
+									<input type="checkbox" id="resolvedBox" name="resolvedBox">
+									<label for="resolvedBox" class="myAssignsFont">Resolved</label>
+								</div>
+								<button type="submit" id="specialSubmitButton" class="myAssignsFont pointer" >Submit</button>
+							</form>
+							<br><br><br>
+						</div><br>
+					</div>
+				</div>
+				<div id="buttons-container">
+					<form id="transfer" action="./transfer/<%- log.pId %>" method="POST"/>
+					<button type="button" class="specialButtons" onclick="handleTransfer()">Request External</button>
+					<button type="button" class="specialButtons">Transfer Ticket</button>
+				</div>
+			</article>
+		</div>
+		<%- include('footer') -%>
+</body>
+
+</html>

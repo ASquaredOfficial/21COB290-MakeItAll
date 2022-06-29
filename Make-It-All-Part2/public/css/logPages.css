@@ -1,0 +1,218 @@
+@import './colors.css';
+/*This Page should have some if not all the css for all the log pages, including:
+    - specialist.ejs
+    - myLogsUser.ejs
+*/
+/*Page Layout Formatting*/
+#mainLogPage {
+    width: 80%;
+    border-right: 1px solid #D2D2D2;
+    border-left: 1px solid #D2D2D2;
+    padding-bottom: 30px;
+}
+#searchGroup {
+    border-bottom: 1px solid #D2D2D2;
+    padding-bottom: 15px;
+    padding-top: 85px;
+    text-align: center;
+}
+
+/*Search Stylings*/
+.searchInput {
+    /*Search Input Box*/
+    box-sizing: border-box;
+    border: 2px solid #949494;
+    border-radius: 4px;
+    border-width: thin;
+    width: 70%;
+    padding: 8px 10px;
+    outline: none;
+    display: inline-flex;
+    text-indent: 35px;
+    background-color: #FFFFFF;
+    
+	background-image: url("../images/SearchIconBlack.png");
+	background-repeat: no-repeat;
+	background-size: 20px;
+	background-position: 10px 6px;
+} input:focus.searchInput, input.searchInput:hover {
+    border: 1.5px solid #FFDA59;
+} #specSearchBar, #userSearchBar, #faqSearchBar {
+    display: inline;
+} #specSearchBar, #userSearchBar {
+    width: 60%;
+} 
+#specSearchDropdown, #userSearchDropdown, .manageTableDropdown {
+    display: inline; 
+    width:11%; 
+    height: 33px; 
+    color: #000000; 
+    border-radius: 5px; 
+    border: none; 
+    border-bottom: 2px solid #F0BA00;
+    background-color: #FFFFFF;
+} #specSearchDropdown:hover, #userSearchDropdown:hover, .manageTableDropdown:hover {
+    background-color: #e7e6e6;
+} #filterButton, #searchButton, .filterPopupButton { 
+    /*Search and Filter Button CSS*/
+    border-width: thin;
+    color: #000000;
+    background-color: #EBE8E9;
+    border: 2px solid #949494;
+    border-radius: 5px;
+    height: 33px;
+    margin: 5px;
+    width: 10%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    font-size: 0.9rem;
+} #filterButton:hover, #searchButton:hover, #specSearchDropdown:hover, .filterPopupButton:hover, .manageTableDropdown:hover {
+    background-color: #b6b5b5;
+}#filterButton:focus, #searchButton:focus, #specSearchDropdown:focus, .filterPopupButton:focus, .manageTableDropdown:focus {
+    outline: 1px dotted #153775;
+    outline: 5px auto -webkit-focus-ring-color;
+} #filterIcon { 
+	width:15px;
+	height:15px;
+	display: inline;
+	margin-left:10px;
+	margin-bottom:-3px;
+} 
+
+/*Log Table CSS*/
+table#logTable, table#managerTable {
+    width: 95%;
+} table#logTable, table#logTable > th, table#logTable > td,
+ table#managerTable, table#managerTable > th, table#managerTable > td {
+    text-align: center;
+    color: #ffffff;
+    background-color: #605E5E;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 0.85em;
+    table-layout: auto;
+    padding: 2px;
+    border-spacing: 1px;
+} th.log_Table, td.log_Table,
+th.manager_table, td.manager_table {
+    /*logpage and adminpage table gap b/t rows*/
+    border-top: 4px solid #747171;
+} th.log_Table, th.manager_table {
+    /*Table header font weight*/
+    font-weight: 600;
+} table#logTable tr, table#managerTable tr {
+    display: table-row;
+}
+.log_Table tr, .log_Table td,
+.manager_table tr, .manager_table td{
+    max-height: 500px;
+    overflow:hidden;
+}
+table.log_Table tr:hover td, table.manager_table tbody tr:hover td {
+    /*Log table row hover*/
+    background-color: #3937b8;
+    cursor: pointer;
+} .log_Table tr:first-child th:hover, .manager_table tr:first-child th:hover {
+    /*Log table header hover*/
+    background-color: #17151a;
+    color:#d8a900;
+    transition: 0.3s;
+} .log_Table tr:first-child th, .manager_table tr:first-child th {
+    /*Log table header*/
+    background-color: #F0BA00;
+    color: #000000;
+    border-top: 0px;
+    cursor: pointer;
+} .log_Table td:nth-child(3) {
+    /*Set text align to left for the problem description*/
+    text-align: left;
+    padding: 2px;
+} .log_Table .status_high {
+    /*Red left border*/
+    border-left: 5px solid #a30404;
+} .log_Table .status_medium {
+    /*Amber left border*/
+    border-left: 5px solid #fb8c04;
+} .log_Table .status_low {
+    /*Yellow left border*/
+    border-left: 5px solid #ffc600;
+} .log_Table .status_null {
+    /*Green left border*/
+    border-left: 5px solid #499c22;
+}
+/*Filter Div and Update Info (manage) Pop Up*/
+#filterOptions, #updateInfo {
+    display: none;
+	position: absolute;
+	top: 180px;
+    left: 0;
+    right: 0;
+    background-color: #414141;
+    border: 5px solid #C4C4C4;
+    color: #FFFFFF;
+    width: 320px;
+    margin: 0 auto;
+	z-index: 5;
+    padding: 20px 15px;
+    text-align: left;
+} #filterTitle {
+    margin-top: 10px; 
+    margin-bottom: 5px;
+} .filterSubtitle {
+    font-weight: normal; 
+    margin:0px; 
+	padding-top: 5px;
+} .dateInput {
+    color: #000000;
+    border: 1px solid #F0BA00;
+    text-indent: 0;
+    border-radius: 5px;
+    border-bottom: 2px solid #F0BA00;
+    height: 25px;
+} .dateInput:hover, .dateInput:focus { 
+    border:2px solid #e6bb21;
+    border-radius: 5px;
+    outline: none !important;
+    box-shadow: 0 0 2px #FFDA59;
+} .filterPopupButton { 
+    /*Search and Filter Button CSS*/
+    min-width: 85px;
+    display: inline;
+} button#exitButton {
+    border-radius: 50%;
+    top: -35px;
+    right: -28px;
+    padding: 0.5em;
+    width: 30px;
+    height: 30px;
+    border: 2px solid black;
+    color: blue;
+    position: relative;
+    background-color: #ADD8E6;
+    cursor: pointer;
+} button#exitButton:hover {
+    border: 2px solid black;
+    background-color: #f5d000;
+    color: #ffffff;
+} button#exitButton::before {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: black;
+    width: 2px;
+    left: 12px;
+    top: 5px;
+    bottom: 5px;
+    transform: rotate(45deg);
+} button#exitButton::after {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: black;
+    height: 2px;
+    top:12px;
+    left: 5px;
+    right: 5px;
+    transform: rotate(45deg);
+}

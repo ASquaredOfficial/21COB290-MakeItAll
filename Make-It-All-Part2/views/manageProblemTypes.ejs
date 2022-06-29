@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head') -%>
+    <script defer src="/js/manage.js"></script>
+    <script defer src="/js/managePType.js"></script>
+</head>
+
+<body>
+    <%- include('navbar') -%>
+    <div id="managerPage" class ="center">
+        <div id="managerHeader" class="center">
+            <p id="managerTitle"> <%= pageTitle %></p>
+            <% button_links.forEach(element => { %>
+                <a href="<%= element.url %>" type="button" id="specialSubmitButton" class="manageButtonsDecorations pointer <%= element.underline %>" ><%= element.text %></a>
+            <% }) %>
+        </div>
+
+        <div id="searchGroup" class="center" style="padding-top:0px;">
+            <select id="managePTypeSearchDropdown" type="text" name="priority" class="manageTableDropdown dropInput pointer">
+                <option value="all" selected>All</option>
+                <option value="id">ID</option>
+                <option value="name">Name</option>
+                <option value="parentName">Parent Name</option>
+            </select>
+            <input class="center searchInput" name="searchInput" type="text" id='managePTypeSearchBar' autocomplete="off" placeholder="Search" autofocus style="display: inline;"/>
+            <span style="width:0px;"></span>
+            <button id="searchButton" onclick="searchPTypeTable()">Search</button>
+        </div>
+
+        <div id="editOptions">
+            <div class="plus" type="submit" onclick="addPType()"></div>
+            <div class="editButton" type="submit" onclick="showUpdatePopup()"></div>
+
+            <form id="deleteForm" method="post" action="/admin/manage/problemtypes/delete">
+                <div class="minusButton" onclick="deleteRow()"></div>
+                <input id="deleteInput" name="id" class="dropInput input" type="text" oninput="returnTableBG()" placeholder="ID" list="listIds" autocomplete="off" required></input>
+                    <datalist id="listIds">
+                        <% for(var i=0; i < data.length; i++){ %>
+                            <option value="<%= data[i].id %>">
+                        <% } %>
+                    </datalist>
+            </form>
+        </div>
+
+        <table id="managerTable" class="center manager_table ">
+            <colgroup class="tablewidth ">
+                <col style="width: 15%;">
+                <col style="width: 50%;">
+                <col style="width: 35%;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="manager_table">ID</th>
+                    <th class="manager_table">Name</th>
+                    <th class="manager_table">Parent Name</th>
+                </tr>
+                <tr>
+                    <form id="addPTypeForm" method="post" action="/admin/manage/problemtypes/post">
+                        <td class="manager_table"> Problem Type ID</td>
+                        <td class="manager_table"><input name="name" type="text" class="dark input dropInput" style="margin:0px; width:99%; color:#F0BA00; height: 20px;" placeholder="Problem Name"></input></td>
+                        <td class="manager_table">
+                            <select id="problemtype" type="text" name="problem_type" class="dark input dropInput pointer" style="margin:0px; width:100%; color:#F0BA00; height:24px;">
+                                <option value="" disabled selected>Select Type</option>
+                                <% for(var i=0; i < data.length; i++){ %>
+                                    <option value="<%= data[i].id %>"><%= data[i].name %></option>
+                                <% } %>
+                            </select>
+                        </td>
+                    </form>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < data.length; i++){ %>
+                    <tr id="type<%= data[i].id %>" class="type_row" onclick=getIdentifier(this)>
+                        <td id="pTypeId<%= data[i].id %>" class="manager_table"><%= data[i].id %></td>
+                        <td id="pTypeName<%= data[i].id %>" class="manager_table"><%= data[i].name %></td>
+                        <% if(data[i].parentId > 0) { %>
+                          <td id="pTypeParemnt<%= data[i].id %>" class="manager_table"><%- data.find(e=> data[i].parentId === e.id).name %></td>
+                        <% } else { %>
+                            <td id="pTypeParent<%= data[i].id %>" class="manager_table">-</td>
+                        <% } %>    
+                        </tr>
+                <% } %>
+                <% if(data.length == 0){ %>
+                    <td colspan="3" class="manager_table"style="padding: 20px 0px;">No Problem Types To Be Found!</td>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="updateInfo">
+        <div style="float: right; display: inline;"><button id="exitButton" onclick="hideUpdatePopup()"></button></div>
+        <h2 class="updateSubtitle" style="margin-bottom: 10px;"><u class="gold">Update Problem Type</u></h2>
+
+        <form id="editPTypeForm" method="post" action="/admin/manage/problemtypes/put">
+            <div>
+                <p class="popupLabel">Problem ID:</p>
+                <input id="updateIdentifierInput" name="id" class="popupInput" type="text" list="productID" placeholder="Enter ID" autocomplete="off" required/>
+                    <datalist id="productID">
+                        <% for(var i=0; i < data.length; i++){ %>
+                            <option value="<%= data[i].id %>"><%= data[i].name %></option>
+                        <% } %>
+                    </datalist>
+                
+                <br><br><p class="popupLabel">Name:</p>
+                <input name="name" class="popupInput" type="text" placeholder="Problem Name" autocomplete="off"></input>
+                
+                <br><br><p class="popupLabel">Parent ID:</p>
+                <input name="parent_id" class="popupInput" type="text" placeholder="Parent ID" autocomplete="off" list="productID2" ></input>
+                    <datalist id="productID2">
+                        <% for(var i=0; i < data.length; i++){ %>
+                            <option value="<%= data[i].id %>"><%= data[i].id %></option>
+                        <% } %>
+                    </datalist>
+            </div><br>
+            
+            <div class="txtCenter">
+                <button class="filterPopupButton" onclick="editPTypeSubmit()">Update</button>
+            </div>
+        </form>
+    </div>
+
+    <button id="toTopButton" onclick="topFunction()" style="display: none;"><img id="upIcon" src="/images/UpButtonIcon.png"></button>
+    <%- include('footer') -%>
+</body>
+
+</html>

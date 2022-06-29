@@ -1,0 +1,84 @@
+.text {
+    color: #FFC600;
+    font-size: 0.8rem;
+} #createTicketTitle {
+    margin:0px;
+    font-size: 1.5rem; 
+    color: #FFFFFF;
+}
+
+.box-ticket {
+    width: 60%;
+    height: 550px;
+    background-color: #606060;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+}
+.ticketInput {
+    opacity: 0;
+    text-indent: 0;
+}
+
+.buttonGradient {
+    background-image: linear-gradient(100deg, #E9B70C, #FFDA59);
+    height: 30px;
+    font-size: 1rem;
+    color: #000000;
+    cursor: pointer;
+} .buttonGradient:hover, .buttonGradient:focus {
+    border-radius: 5px;
+    border:2px solid #e6bb21;
+    outline: none !important;
+    box-shadow: 0 0 2px #000000;
+} .buttonGradient:hover {
+    background-image: linear-gradient(100deg, #f5c62e, #fde17c);
+}
+
+.dropInput { 
+    width: 100%;
+    color: #F0BA00;
+    border-bottom: 2px solid #F0BA00;
+    text-indent: 0;
+}.dropInput:hover, .dropInput:focus, 
+.manageInput:hover, .manageInput:focus,
+.popupInput:hover, .popupInput:focus { 
+    border:2px solid #e6bb21;
+    border-radius: 5px;
+    outline: none !important;
+    box-shadow: 0 0 2px #FFDA59;
+} .dark {
+    background-color: #414141
+} .ticketInputFont option {
+    color: #F0BA00;
+}
+
+#description {
+    width:100%; 
+    height: 150px;
+    border-radius: 4px;
+} #description:hover, #description:focus {
+    outline: none !important;
+    border:2px solid #e6bb21;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #FFDA59;
+} 
+#innerTicketBox {
+    width: 90%;
+    padding-top: 40px;
+} #ticketSubmit {
+    width: 100%;
+}
+
+.Grid {
+    margin-left: -10px;
+    margin-right: -10px;
+} .Row {
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+} .Column {
+    display: table-cell;
+}

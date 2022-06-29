@@ -1,0 +1,68 @@
+#faqsBody {
+    padding-top: 70px;
+} #searchFaqsBody {
+    border-bottom: 1px solid #D2D2D2;
+    padding-bottom: 30px;
+    text-align: center;
+    color: #CCCCCC;
+} #faqsMainBody {
+    width: 80%;
+    border-right: 1px solid #D2D2D2;
+    border-left: 1px solid #D2D2D2;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 40px;
+} #faqsSubBody {
+    width: 80%;
+    text-align: left;
+} .faqsHr {
+    padding: 0px;
+    border-top: 1px solid #D2D2D2;
+    border-bottom: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    margin: 0px 0px;
+} 
+.faqArea:hover {
+    background-color: #757474;
+    cursor: pointer;
+}
+
+#faqSearchTitle {
+    font-size: 1.5rem;
+    padding: 15px 0px;
+    margin: 0px;
+} #faqSearchSubtitle {
+    font-size: 1rem;
+    padding-top: 15px;
+    margin: 0px;
+} #faqsTitle {
+    color: #FFFFFF; 
+    margin:0px;
+    
+} .faqsSubtitle {
+    font-size: 1.35rem;
+    color: #ffd620;
+    margin: 0px;
+    margin-top: 25px;
+    margin-bottom: 3px;
+} .faqsQuestion {
+    font-size: 1rem;
+    color: #CCCCCC;
+    margin: 0;
+    margin-bottom: 5px;
+    margin-top: 3px;
+    display: inline-block;
+} .faqsAnswer {
+    font-size: 0.8rem;
+    color: #FFFFFF;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+.faqArrow {
+    float: right;
+    margin-top: 0px;
+    margin-right: 15px;
+    color:#F0BA00;
+    font-size: 1.1rem;
+}

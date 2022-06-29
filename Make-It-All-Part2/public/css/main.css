@@ -1,0 +1,165 @@
+@import './login.css';
+@import './admin.css';
+@import './faqs.css';
+@import './createTicket.css';
+@import './logPages.css';
+@import './ticketDetailPages.css';
+body {
+    background-color: #414141;
+    font-family: Verdana;
+    margin: 0px;
+}
+
+.gradient {
+    background-image: linear-gradient(100deg, #E9B70C, #FFDA59);
+} 
+
+.shadow {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.border {
+    border-bottom-color: #F0BA00;
+}
+
+/*General Styling*/
+.center {
+    align-items: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+} .txtCenter {
+    text-align: center
+} .pointer {
+    cursor: pointer;
+} .hideElement {
+    display: none;
+} .showElement {
+    display: block;
+    visibility: visible;
+}
+
+/*-------------------- <Navbar> --------------------*/
+#top-nav {
+    display: flex;
+    z-index: 10;
+    justify-content: space-between;
+    top: 0;
+    width: 100%;
+    background: #464646;
+    height: 70px;
+    position: fixed;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+} 
+/*---NavBar Profile Section*/
+.nav-left {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    height: 60px;
+} #navHeader, #navHeader2 {
+    color: #FFFFFF;
+} #navHeader {
+    font-size: 1.8rem; 
+} #navHeader2 {
+    font-size: 1.2rem; 
+} #navHeadIndent {
+    margin-left: 1rem;
+} .profile_img {
+    height:60px;
+    width: 100%;
+} 
+/*---NavBar Links Section*/
+.nav-link {
+    color: #FFFFFF;
+    text-decoration: none;
+} .nav-link:focus {
+    outline: 1px dotted #212121;
+    outline: 5px auto -webkit-focus-ring-color;
+    box-shadow: 0 0 2px #FFDA59;
+} .navOption{
+    height: 70px;
+    float: right;
+} .navOption:hover {
+    background-color: #747171;
+} .nav-right {
+    margin-right: 1rem;
+    margin-left: 1rem;
+    margin-top: 20px;
+} .horiRule { /*Gold Bar*/
+    margin-top: 24px;
+    height: 8px;
+    padding: 0 25px;
+    background-color: #E9B70C; /* For browsers that do not support gradients */
+    background-image: linear-gradient(130deg ,#E9B70C, #FFDA59);
+} .navText {/*Text*/
+    color:#FFFFFF;
+    margin-top: 30px;
+    height: 8px;
+    padding: 0 25px;   
+    display: flex;
+    align-items: center;
+} ul {
+    padding: 0px;
+    margin: 0px;
+} ul li {
+	float: right;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+/*Logout button*/
+button#logoutButton { 
+    border-radius: 7px; 
+    border: 2px solid #FF1049; 
+    background-color: #FF1049; 
+    color:black; 
+    font-size: 1.5rem; 
+    padding: 0px 20px;
+    display: flex; 
+    align-items: center;
+} button#logoutButton:hover, button#logoutButton:focus {
+    color:#FFFFFF;
+    outline: none !important;
+    box-shadow: 0 0 2px #070707;
+    border: 2px solid #fd3e6b; 
+    background-color: #fd3e6b; 
+    transition: 0.3s;
+} 
+
+/*To the Top Button*/
+#toTopButton {
+    border-radius: 50%;
+    border: 2px solid #d8a900;
+    background-color: #F0BA00;
+    color: #000000;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    display: block;
+    position: fixed;
+    opacity: 70%;
+} #toTopButton:hover {
+    opacity: 100%;
+    transition: 0.3s;
+} #upIcon {
+	width:30px;
+	height:30px;
+	display: inline;
+	text-align:center;
+	margin-left:0px;
+	margin-bottom:0px;
+} 
+
+/*-------------------- <Footer> --------------------*/
+#footer {
+    border-top: 1px solid #D2D2D2;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    clear: both;
+}

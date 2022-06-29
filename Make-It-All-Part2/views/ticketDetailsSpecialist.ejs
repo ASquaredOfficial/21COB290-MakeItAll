@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<%- include('head') -%>
+
+</head>
+
+<body>
+	<%- include('navbar') -%>
+    <div id="mainMyTicketPage" class="center">
+		<div id="myTicketarticle" class="center">
+            <div id="mainContainer" class="center">
+                <div id="ticketContainer" class="center">
+                    <h2 id="ticketTitle">Ticket - <span id="probID_2"><%= log.id %></h2>
+                    <hr class="normalHr">
+                    <div id="ticketDetails">
+                        <h3 class="ticketSubtitle"><u class="gold">Ticket Details</u></h3>
+                        <p class="myAssignsFont">Problem ID: <%= log.id %></p>
+                        <p class="myAssignsFont">Call: <%= log.requestDate %></p>
+                        <p class="myAssignsFont">Employee: <%= log.employee %></p>
+                        <p class="myAssignsFont">Software: <%= log.software %></p>
+                        <p class="myAssignsFont">Hardware: <%= log.hardware %></p>
+                        <p class="myAssignsFont">Problem Type: <%= log.problemType %></p>
+                        <p class="myAssignsFont">Problem description: <%= log.description %></p>
+                        <div id="notesDiv">
+                            <div style="float:left"><table><tr><td class="myAssignsFont">
+                                Notes:
+                            </td></tr></table></div>
+                            <table>
+                                <% if (log.notes?.length) { %>
+
+                                    <% for (var j = 0; j < log.notes.length; j++) { %>
+                                        <% if (j == 0) { %>
+                                            <tr><td class="myAssignsFont"><%= log.notes[j][0] %></td></tr>
+                                        <% } else { %>
+                                            <tr><td class="myAssignsFont"><%= log.notes[j][0] %> - <%= log.notes[j][1] %></td></tr>
+                                        <% } %>
+                                    <% } %>
+                                <% } %>
+                            </table>
+                        </div>
+                        <p class="myAssignsFont">Solution: <%= log.solution %></p>
+                    </div><br>
+                </div>
+            </div>
+		</div>
+	</div>
+	<%- include('footer') -%>
+</body>
+
+</html>

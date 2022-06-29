@@ -1,0 +1,175 @@
+/*This Page should have some if not all the css for all the ticket pages, including:
+    - myAssignments.ejs
+    - myLogs.ejs
+*/
+#wrapper {
+	width: 98%;
+} #mainMyTicketPage {
+	width: 80%;
+    border-right: 1px solid #D2D2D2;
+    border-left: 1px solid #D2D2D2;
+    padding-bottom: 80px;
+} #aside {
+	overflow-x: hidden;
+	overflow-y: auto;
+    float: left;
+    width: 20%;
+    background-color: #C4C4C4;
+	margin: 15px;
+	margin-right: 5px;
+    height: 715px; /*Specific height*/
+    min-width: 250px;
+    max-width: 300px;
+} #article {
+    float: left;
+	width: 75%;
+	margin: 15px;
+	margin-left: 5px;
+} #myTicketarticle{
+    width:90%; 
+    padding-top: 80px;
+} #mainContainer {
+	clear: right;
+	background-color: #C4C4C4;
+    color: #000000;
+} #ticketContainer {
+	width: 98%;
+} #ticketDetails, #updateTicket {
+	background-color: #413B3B;
+	color: #FFFFFF;
+	padding: 4px;
+    display: block;
+    padding: 10px;
+} #ticketDetails {
+    height: 295px; /*Specific height*/
+    overflow-x: hidden;
+	overflow-y: auto;
+} #updateTicket {
+    height: 218px; /*Specific height*/
+}
+u.gold {
+	text-decoration:none;
+	border-bottom:2px solid #FFDA59;
+} .normalHr {
+	padding: 0px;
+    border-top: 1px solid #000000;
+    border-bottom: 0px;
+    border-right: 0px;
+    border-left: 0px;
+}.myAssignsFont{
+    font-size: 0.9em;
+} #ticketTitle {
+	font-weight: normal; 
+	padding-left: 2px; 
+	padding-top: 20px; 
+	margin-bottom: 5px; 
+	margin: 0px;
+} .ticketSubtitle, .updateSubtitle {
+	font-weight: normal; 
+	margin:0px; 
+	padding-top: 5px;
+} #toDoTitle {
+	margin-bottom: 5px; 
+	font-weight: normal;
+} .toDos {
+	background-color: #979797;
+	padding: 2px;
+	margin: 8px;
+	cursor: pointer;
+	font-size: 0.8em;
+} .toDos:hover {
+	background-color: #b3b3b3;
+} #todoHr {
+    width: 95%;
+    padding: 0px;
+    border-top: 1px solid #000000;
+    border-bottom: 0px;
+    border-right: 0px;
+    border-left: 0px;
+} .toDos > div {
+    display: inline-block;    
+} .priorityBox {
+    padding: 10px ;
+    height:5px;
+    width:5px;
+    z-index: 100;
+    top: 50%;
+    transform: translateY(-38%);
+    margin: 0px 5px;
+} .redBox {
+	background-color: #ff1100;
+	border: 1px solid #800000;
+} .amberBox {
+	background-color: #FF8A00;
+	border: 1px solid #c46902;
+} .yellowBox {
+	background-color: #FFE600;
+	border: 1px solid #a19100;;
+} .greenBox {
+	background-color: #499c22;
+	border: 1px solid #236b02;
+}  .NullToDoMessage {
+    font-size:.85em; 
+    min-height: 50px; 
+    padding: 5px;
+}
+/*Update Ticket CSS*/
+#addNotes { 
+    width: 99%; 
+    resize:vertical;
+    margin: 5px 0px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 0.9em;
+    resize: none
+} #addNotes:hover, #addNotes:focus {
+    outline: none !important;
+    border:2px solid #e6bb21;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #FFDA59;
+} #resolvedBox, #archiveSolution {
+    display: inline-block; 
+    margin-left:5px;
+} #resolvedBox:focus, #archiveSolution:focus {
+    outline: none !important;
+    border: #F0BA00;
+    box-shadow: 0 0 2px #FFDA59;
+} 
+/*Buttons*/
+.specialButtons {
+	background-color: #F0BA00;
+	color: #000000;
+	border: none;
+	padding: 15px 20px;
+	margin-right: 10px;
+	margin-top: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: block;
+	font-size: 16px;
+	float: left;
+} .specialButtons:hover, .specialButtons:focus {
+	background-color: #FFDA59;
+	cursor: pointer;
+    outline: none !important;
+    box-shadow: 0 0 2px #FFDA59;
+} #specialSubmitButton {
+    background-color: #F0BA00;
+	color: #000000;
+    border: none;
+    padding: 10px 15px;
+    margin: 7px;
+    float: right;
+    border-radius: 8px;
+} #specialSubmitButton:hover, #specialSubmitButton:focus {
+    background-color: #FFDA59;
+    outline: none !important;
+    box-shadow: 0 0 2px #FFDA59;
+} 
+
+.pNotesNewLine::before {
+    content: "         ";
+    white-space: pre;
+    text-indent: 3px;
+}

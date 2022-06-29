@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('head') -%>
+  </head>
+
+  <body>
+    <img class="imgHead" src="images/Group 24.svg " />
+    <div class="box shadow">
+      <h1 class="authHead">Login</h1>
+      <form action="/auth" method="post">
+        <div class="center" style="width: 70%;">
+        <label id="lblEmail" for="email">Enter username:</label>
+        <input
+          class="input shadow"
+          type="text"
+          name="email"
+          id="email"
+          placeholder="Email... "
+        /><br></div>
+        <div class="center" style="width: 70%;">
+        <label id="lblPassword" for="password">Enter password:</label>
+        <input
+          class="input shadow"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password... "
+        /></div>
+        
+        <div class="center" style="width: 70%;">
+          <h5 id="resetPass" class="txtCenter">
+            Forgot password?
+            <a id="resetPassLink" href="./auth/request_password_reset">Reset here</a>
+          </h5>
+          <div class="innerBox <%= showDiv %>">
+            <p id="returnMessage" class="txtCenter"><% if (message) { %> <%= message %> <% } %></p>
+          </div>
+        </div>
+        <br>
+        <button class="logbutton shadow pointer" type="submit">Login</button>
+        
+      </form>
+    </div>
+  </body>
+</html>

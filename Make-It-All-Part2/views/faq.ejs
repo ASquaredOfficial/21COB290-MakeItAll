@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head') -%>
+    <script src="../js/user.js" defer></script>
+</head>
+<body>
+    <%- include('navbar') -%> 
+    <div id="faqsBody">
+        <div id="searchFaqsBody">
+            <p id="faqSearchTitle">How Can We Help You?</p>
+
+            <div class="center" style="width: 80%;">
+                <input class="center searchInput" name="searchInput" type="text" id="faqSearchBar" autocomplete="off" placeholder="Type in key words to help find answers"/>
+                <span style="width:0px;"></span>
+                <button id="searchButton" onclick="faqSearch()">Search</button>
+            </div>
+            <p id="faqSearchSubtitle">You can browse questions below to find what you’re looking for</p>
+            
+        </div>
+
+        <div id="faqsMainBody" class="center">
+            <h2 id="faqsTitle"><u>Frequently Asked Questions</u> (FAQs)</h2>
+            <div id="faqsSubBody" class="center">
+                <p class="faqsSubtitle">Hardware</p><hr class="faqsHr">
+                <% for(var i=0; i < faqs.length; i++) { 
+                    if(faqs[i].problemType == 1){ %>
+                        <div id="faq<%=faqs[i].faqId%>" class="faqArea" onclick="toggleFAQ(this)">
+                            <p id="faqQuestion<%=faqs[i].faqId%>" class="faqsQuestion">
+                                <%= faqs[i].faqQuestion %>
+                            </p><span id="faqArrow<%=faqs[i].faqId%>" class="faqArrow">▼</span>
+                            <p id="faqAnswer<%=faqs[i].faqId%>" class="faqsAnswer" style="display:none">
+                                <%= faqs[i].faqAnswer %>
+                            </p>
+                            <hr class="faqsHr">
+                        </div>
+                    <% }
+                } %>
+
+                <p class="faqsSubtitle">Software</p><hr class="faqsHr">
+                <% for(var i=0; i < faqs.length; i++) { 
+                    if(faqs[i].problemType == 2){ %>
+                        <div id="faq<%=faqs[i].faqId%>" class="faqArea" onclick="toggleFAQ(this)">
+                            <p id="faqQuestion<%=faqs[i].faqId%>" class="faqsQuestion">
+                                <%= faqs[i].faqQuestion %>
+                            </p><span id="faqArrow<%=faqs[i].faqId%>" class="faqArrow">▼</span>
+                            <p id="faqAnswer<%=faqs[i].faqId%>" class="faqsAnswer" style="display:none">
+                                <%= faqs[i].faqAnswer %>
+                            </p>
+                            <hr class="faqsHr">
+                        </div>
+                    <% }
+                } %>
+
+                <p class="faqsSubtitle">Network</p><hr class="faqsHr">
+                <% for(var i=0; i < faqs.length; i++) { 
+                    if(faqs[i].problemType == 3){ %>
+                        <div id="faq<%=faqs[i].faqId%>" class="faqArea" onclick="toggleFAQ(this)">
+                            <p id="faqQuestion<%=faqs[i].faqId%>" class="faqsQuestion">
+                                <%= faqs[i].faqQuestion %>
+                            </p><span id="faqArrow<%=faqs[i].faqId%>" class="faqArrow">▼</span>
+                            <p id="faqAnswer<%=faqs[i].faqId%>" class="faqsAnswer" style="display:none">
+                                <%= faqs[i].faqAnswer %>
+                            </p>
+                            <hr class="faqsHr">
+                        </div>
+                    <% }
+                } %>
+        
+            </div>
+        </div>
+    </div>
+    <button id="toTopButton" onclick="topFunction()" style="display: none;"><img id="upIcon" src="/images/UpButtonIcon.png"></button>
+    <%- include('footer') -%>
+</body>
+</html>

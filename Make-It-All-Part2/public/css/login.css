@@ -1,0 +1,92 @@
+.box {
+    width: 30%;
+    max-width: 400px;
+    height: 500px;
+    background-color: #606060;
+    margin: auto;
+    margin-top: 70px;
+    border-radius: 20px;
+}
+
+.innerBox {
+    width: 100%;
+    padding: 5px;
+    background-color: #141414;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    display: none;
+    visibility: hidden;
+}
+
+.authHead {
+    text-align: center;
+    padding-top: 70px;
+    color: white;
+    font-size: xx-large;
+    margin-bottom: 70px;
+}
+
+.imgHead {
+    display: block;
+    margin: auto;
+}
+
+.input,
+.logbutton {
+    display: block;
+    margin: auto;
+    border: none;
+    border-radius: 5px;
+}
+
+.input {
+    margin-bottom: 20px;
+    opacity: 0.7;
+    height: 30px;
+    text-indent: 20px;
+    width: 100%;
+    height: 30px;
+}
+
+.logbutton {
+    font-size: 1.5rem;
+    color: white;
+    padding: 4px 15px;
+    background-color: #F0BA00;
+    width: 80%;
+} .logbutton:hover {
+    background-color: #ffd53d;
+}
+
+#lblEmail, #lblPassword, #resetPasswordReturn {
+    color: #FFFFFF;
+    font-size: 0.9em;
+    margin-top: 30px;
+    padding-bottom: 5px;
+}
+
+#returnMessage {
+    color: #FFFFFF;
+}
+#email, #password {
+    margin: 0px;
+    margin-top: 5px;;
+}
+
+#resetPass {
+    color: #FFFFFF;
+    margin: 0px;
+    margin-top: 6px;
+    font-weight: normal;
+}
+a#resetPassLink {
+	text-decoration: none;
+	color: #c59b01;
+}
+a#resetPassLink:hover {
+	text-decoration: underline;
+	color: #FFC600;
+	cursor: pointer;
+	
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<%- include('head') -%>
+	<script src="/js/specialist.js" defer></script>
+</head>
+
+<body>
+	<%- include('navbar') -%>
+		<div id="wrapper" class="center">
+			<div style="padding-top: 85px;">
+				<aside id="aside">
+					<h2 id="toDoTitle" class="txtCenter">To-Do</h2>
+					<hr id="todoHr">
+					<% for(var i=0; i < todo.length; i++) { %>
+						<div id="<%- todo[i].id %>"  class="toDos" onclick="window.location=`${window.location}/<%= todo[i].pId %>`;">
+							<div class="priorityBox <%= todo[i].pUrgy %>"></div>
+							<div>Ticket No. <%= todo[i].pId %>
+								<br>Problem Type: <%= todo[i].pType %>
+								<br>Requested <%= todo[i].daysSince %> days ago
+							</div>
+						</div>
+					<% } %>
+					<div class="toDos <%= logsPresent %> NullToDoMessage txtCenter">
+						<b>There are no more tickets assigned to you!</b>
+					</div>
+				</aside>
+			</div>
+		</div>
+		<%- include('footer') -%>
+</body>
+
+</html>

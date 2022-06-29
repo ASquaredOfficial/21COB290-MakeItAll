@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('head') -%>
+    <title>JavaScript Donut Chart</title>      
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/admin.js" defer></script>
+</head>
+
+<body>
+    <%- include('navbar') -%> 
+    <div id="adminBody" style="margin-top: 90px; padding: 0px 10px;">
+        <div id="adminDateDiv" style="display:block;">
+            <!--<p id="navHeader">Filter between Dates</p>-->
+            <form id="dateForm" method="post" action="/admin">
+                <label id="date-start" for="date-start" style="color:#FFFFFF">Start date:</label>
+                <input type="date" id="start-date" name="date_start" class="dateInput"
+                    value="<%=startDate%>" max="2022-12-31">
+
+                <label id="date-end" for="date-end" style="color:#FFFFFF">End date:</label>
+                <input type="date" id="end-date" name="date_end" class="dateInput"
+                    value="<%=endDate%>" max="2022-12-31">
+                <br>
+                <button id="dateSubmit" type="submit " class="logbutton buttonGradient">Update</button>
+            </form>
+        </div>
+        
+        <div style="width:250px; display: inline-block;">
+            <chart class="donut-software-container"> 
+            <div class="canvas_don_software">
+                <p id="navHeader">Software</p>
+                <canvas id="DonutChartSoftware">
+                </canvas>
+            </div>
+            </chart>
+        </div>
+        
+        <div style="width:250px; display: inline-block;">
+            <chart class="donut-hardware-container"> 
+            <div class="canvas_don_hardware">
+                <p id="navHeader">Hardware</p>
+                <canvas id="DonutChartHardware">
+                </canvas>
+            </div>
+            </chart>
+        </div>
+        
+        <div style="width:250px; display: inline-block;">
+            <chart class="donut-network-container"> 
+            <div class="canvas_don_network">
+                <p id="navHeader">Network</p>
+                <canvas id="DonutChartNetwork">
+                </canvas>
+            </div>
+            </chart>
+        </div>
+
+        <chart class="line-container"> 
+            <div class="canvas_line">
+                <p id="navHeader">Number of Tickets logged</p>
+                <canvas id="LineChart">
+
+                </canvas>
+            </div>
+        </chart>
+
+
+        <chart class="bar-container"> 
+            <div class="canvas_bar">
+                <p id="navHeader">Total Number of Problem Types</p>
+                <canvas id="BarChart">
+                    
+                </canvas>
+            </div>
+        </chart>
+
+        
+        <p hidden id="arrayDates"><%=listDates%></p>
+        <p hidden id="arrayQuantity"><%=listDatesQuantity%></p>
+
+        <p hidden id="hardwareResNum"><%=hardDonutData[0]%></p>
+        <p hidden id="hardwareUnresNum"><%=hardDonutData[1]%></p>
+
+        <p hidden id="softwareResNum"><%=softDonutData[0]%></p>
+        <p hidden id="softwareUnresNum"><%=softDonutData[1]%></p>
+
+        <p hidden id="networkResNum"><%=netDonutData[0]%></p>
+        <p hidden id="networkUnresNum"><%=netDonutData[1]%></p>
+
+        <p hidden id="hardwareHiddenNum"><%=barChartData[0]%></p>
+        <p hidden id="softwareHiddenNum"><%=barChartData[1]%></p>
+        <p hidden id="networkHiddenNum"><%=barChartData[2]%></p>
+    </div>
+    <button id="toTopButton" onclick="topFunction()" style="display: none;"><img id="upIcon" src="/images/UpButtonIcon.png"></button>
+    
+</body>
+
+</html>

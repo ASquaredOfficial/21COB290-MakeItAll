@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('head') -%>
+    <script src="/js/user.js" defer></script>
+</head>
+
+<body>
+    <%- include('navbar') -%>
+    <div class="box-ticket">
+        <form action="" method="post">
+            <div id="innerTicketBox" class="center">
+            <p id="createTicketTitle"><u style="text-decoration-color:  #F0BA00;">Create Ticket</u></p>
+            <div class="Grid">
+                <div class="Row">
+                    <div class="Column">
+                        <!--- We might need two fields bcs there will be many types-->
+                        <label for="type" class="text">Problem Type </label><br>
+                        <select id="problemtype" type="text" name="type" class="dark input dropInput pointer">
+                            <option value="" disabled selected>Select Option</option>
+                            <% for(var i=0; i < problemTypes.length; i++) { %>
+                                <option value="<%= problemTypes[i].id %>"><%= problemTypes[i].name %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="Column">
+                        <label for="type" class="text">Problem Urgency</label><br>
+                        <select id="problemurgent" type="text" name="priority" class="dark input dropInput pointer">
+                            <option value="" disabled selected>Select Option</option>
+                            <option value="HIGH">High</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="LOW">Low</option>
+                        </select>
+                    </div>
+                    <div class="Column" style="visibility: hidden;">
+                        <label for="" class="text">Invisible Text</label><br>
+                        <select id="" type="" name="" class="dark input dropInput pointer">
+                            <option value="" disabled selected></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <label for="description" class="text">Problem Description</label><br>
+            <textarea required name="description" id="description" class="dark dropInput" cols="30" rows="10" maxlength="300" oninput="charMax(this)"
+                    placeholder="Problem Description..."></textarea>
+            <p class="text" style="text-align:right; margin-top: 0px;">Character Limit of 300 (<span id="charLenSoFar">0</span> of 300)</p>
+            <!-- Possible selecting multiple textboxes showing in the textarea -->
+            <div class="Grid">
+                <div class="Row">
+                    <div class="Column">
+                        <label for="type" class="text">Operating Systems</label><br>
+                        <select id="operatingsystems" type="text" name="os" class=" dark input dropInput pointer">
+                            <option value="" disabled selected>Select Option</option>
+                            <option value="Windows">Windows</option>
+                            <option value="Mac">Mac</option>
+                            <option value="Linux">Linux</option>
+                        </select>
+                    </div>
+                    <div class="Column">
+                        <label for="type" class="text">Software</label><br>
+                        <select id="software" type="text" name="software" class="dark input dropInput pointer">
+                            <option value="" disabled selected>Select Option</option>
+                            <% for(var i=0; i < software.length; i++) { %>
+                                <option value="<%= software[i].id %>"><%= software[i].name %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="Column">
+                        <label for="type" class="text">Equipment</label><br>
+                        <select id="equipment" type="text" name="hardware" class="dark input dropInput pointer">
+                            <option value="" disabled selected>Select Option</option>
+                            <% for(var i=0; i < hardware.length; i++) { %>
+                                <option value="<%= hardware[i].id %>"><%= hardware[i].name %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div><br>
+            </div>
+            <button id="ticketSubmit" type="submit " class="logbutton buttonGradient">Log Ticket</button>
+        </div>
+        </form>
+    </div>
+    <%- include('footer') -%>
+</body>
+
+</html>
